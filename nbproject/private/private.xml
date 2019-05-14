@@ -4,29 +4,26 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/gui/DoiPassword.fxml</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/entity/Order.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/entity/OrderDetail.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/entity/Account.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/gui/account/WorkSpaceController.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/gui/account/WorkSpace.fxml</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/gui/Login.fxml</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/main/LoaderMain.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/gui/admin/ListProduct.fxml</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/entity/Category.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/gui/admin/AdminWorkSpace.fxml</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/main/MainController.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/entity/Admin.java</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/gui/admin/ListTableController.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/entity/Product.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/gui/admin/ListTable.fxml</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/gui/admin/ListAccountController.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/main/Main.fxml</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/gui/admin/ListAccount.fxml</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/connection/BDConnection.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/gui/admin/AdminWorkSpaceController.java</file>
-            <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/entity/Order.java</file>
-            <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/entity/OrderDetail.java</file>
-            <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/gui/account/WorkSpace.fxml</file>
-            <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/gui/Login.fxml</file>
-            <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/gui/admin/ChinhSuaThongTinAccount.fxml</file>
-            <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/entity/ProductDetail.java</file>
-            <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/gui/admin/ChinhSuaThongTinAccountController.java</file>
-            <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/gui/admin/ListTableController.java</file>
-            <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/gui/admin/ListAccountController.java</file>
-            <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/gui/admin/ListAccount.fxml</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/gui/admin/ListProductController.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/gui/DoiPasswordController.java</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/CoffeeShop/src/gui/LoginController.java</file>
