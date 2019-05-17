@@ -59,10 +59,9 @@ public class LoginController implements Initializable {
         
     }    
     
-    private String getUsername(){
+    private String getUsernameAdmin(){
          String username="";
         try {
-           
             pst = con.prepareStatement("Select username from admin where username = ?");
             pst.setString(1, jtf_userName.getText());
             rs = pst.executeQuery();
@@ -74,11 +73,41 @@ public class LoginController implements Initializable {
         }
          return username;
     }
-     private String getPassword(){
+     private String getPasswordAdmin(){
          String password="";
         try {
            
             pst = con.prepareStatement("Select pass from admin where username = ?");
+            pst.setString(1, jtf_userName.getText());
+            rs = pst.executeQuery();
+            if(rs.next())
+                password = rs.getString(1);
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return password;
+    }
+     
+     private String getUsernameAccount(){
+         String username="";
+        try {
+            pst = con.prepareStatement("Select username from Account where username = ?");
+            pst.setString(1, jtf_userName.getText());
+            rs = pst.executeQuery();
+            if(rs.next())
+                username = rs.getString(1);
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return username;
+    }
+     private String getPasswordAccount(){
+         String password="";
+        try {
+           
+            pst = con.prepareStatement("Select pass from Account where username = ?");
             pst.setString(1, jtf_userName.getText());
             rs = pst.executeQuery();
             if(rs.next())
@@ -97,7 +126,16 @@ public class LoginController implements Initializable {
 
     @FXML
     private void _login(ActionEvent event) throws IOException {
-        if(jtf_userName.getText().equals(getUsername()) && jpf_passWord.getText().equals(getPassword())){
+        if(jtf_userName.getText().equals(getUsernameAdmin()) && jpf_passWord.getText().equals(getPasswordAdmin())){
+            Stage stage = (Stage) anchorPane.getScene().getWindow();
+            stage.close();
+            Parent root = FXMLLoader.load(getClass().getResource("/gui/admin/AdminWorkSpace.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+        
+        else if(jtf_userName.getText().equals(getUsernameAccount()) && jpf_passWord.getText().equals(getPasswordAccount())){
             Stage stage = (Stage) anchorPane.getScene().getWindow();
             stage.close();
             Parent root = FXMLLoader.load(getClass().getResource("/gui/account/WorkSpace.fxml"));
@@ -107,7 +145,7 @@ public class LoginController implements Initializable {
         }
         else{
             AlertMaker alert = new AlertMaker();
-            alert.showSimpleAlert("Invalid Username of password","showSimpleAlert");
+            alert.showSimpleAlert("Invalid Username of password","Invalid Username of password");
         }
     }
     

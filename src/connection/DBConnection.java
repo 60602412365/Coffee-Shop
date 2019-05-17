@@ -31,8 +31,12 @@ public class DBConnection {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             
             //2. tao ket noi den co so du lieu
-            String url = "jdbc:sqlserver://localhost:1433;databaseName=COFFEESHOP;username:sa;password=123456789";
+            String url =  "jdbc:sqlserver://localhost:1433;databaseName=COFFEESHOP;user=sa;password=123456789";
             con = DriverManager.getConnection(url);
+          
+            System.out.println("Connected");
+
+ 
             
         }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);

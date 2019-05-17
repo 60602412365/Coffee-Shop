@@ -54,3 +54,16 @@ create table OrderDetails(
 go
 --END ORDER
 
+insert into Admin values
+('AD00000001', 'admin', 'admin', N'Trung')
+go
+
+
+insert into Account values
+('AC00000001', 'username1', 	'password1',	N'Phạm Thanh A' ),
+('AC00000002', 'username2', 	'password2',	N'Nguyễn Khánh D'),
+('AC00000003', 'username3', 	'password3',	N'Lý Đông N'),
+('AC00000004', 'username4', 	'password4',	N'Bảo N'),
+('AC00000005', 'username5', 	'password5',	N'Lương Nhật D'),
+('AC00000006', 'username6', 	'password6',	N'Đinh Thanh H')
+go
