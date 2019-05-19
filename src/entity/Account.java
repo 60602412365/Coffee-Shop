@@ -5,12 +5,12 @@
  */
 package entity;
 
-import javafx.beans.property.SimpleStringProperty;
-
 /**
  *
  * @author PC
  */
+
+
 public class Account {
     private String id, userName, passWord, name;
 

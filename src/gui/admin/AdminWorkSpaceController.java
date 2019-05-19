@@ -12,10 +12,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import Utilities.ChangeScreen;
-import java.util.Optional;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
@@ -45,51 +46,45 @@ public class AdminWorkSpaceController implements Initializable {
     }    
 
     @FXML
-    private void _quanLyNhanSu(ActionEvent event) 
-    {
-        ChangeScreen.loadWindowforAdminWorkSpace(getClass().getResource("/gui/admin/ListAccount.fxml"), "Quản lý nhân sự", null);
+    private void btn_quanLyNhanSu(ActionEvent event) {
+        ChangeScreen.loadWindow(getClass().getResource("/gui/admin/ListAccount.fxml"), "Quản lý nhân sự", null);
     }
 
     @FXML
-    private void _quanLyBan(ActionEvent event) 
-    {
-        ChangeScreen.loadWindowforAdminWorkSpace(getClass().getResource("/gui/admin/ListTable.fxml"), "Quản lý Bàn", null);
+    private void _quanLyBan(ActionEvent event) {
+        ChangeScreen.loadWindow(getClass().getResource("/gui/admin/ListTable.fxml"), "Quản lý bàn", null);
     }
 
     @FXML
-    private void _quanLyThucDon(ActionEvent event) 
-    {
-        ChangeScreen.loadWindowforAdminWorkSpace(getClass().getResource("/gui/admin/ListProduct.fxml"), "Quản lý thực đơn", null);
+    private void _quanLyThucDon(ActionEvent event) {
+        ChangeScreen.loadWindow(getClass().getResource("/gui/admin/ListProduct.fxml"), "Quản lý thực đơn", null);
     }
 
     @FXML
     private void _doanhThu(ActionEvent event) {
-        
     }
 
     @FXML
     private void _doiMatKhau(ActionEvent event) {
-        ChangeScreen.loadWindowforAdminWorkSpace(getClass().getResource("/gui/DoiPassword.fxml"), "Đổi mật khẩu", null);
+        ChangeScreen.loadWindow(getClass().getResource("/gui/DoiPassword.fxml"), "Đổi mật khẩu", null);
     }
 
     @FXML
     private void _dangXuat(ActionEvent event) {
-        
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Đăng Xuất");
-        alert.setHeaderText("Cảnh báo đăng xuất");
-        alert.setContentText("Bạn có chắc chắn muôn đăng xuất không ?");
-        
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK)
+        try
         {
-            ChangeScreen.loadWindowforAdminWorkSpace(getClass().getResource("/gui/Login.fxml"), "Login", null);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Login.fxml"));
+            Parent root = (Parent) loader.load();
+            Stage stage = new Stage();
+            
+            stage.setTitle("Login");
+            stage.setScene(new Scene(root));
+            stage.show();
+            
         }
-        else
+        catch(IOException ex)
         {
-            System.exit(0);
         }
-        
     }
     
 }
