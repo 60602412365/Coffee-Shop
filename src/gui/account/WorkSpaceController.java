@@ -5,9 +5,14 @@
  */
 package gui.account;
 
+import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import Utilities.ChangeScreen;
 
 /**
  * FXML Controller class
@@ -16,6 +21,15 @@ import javafx.fxml.Initializable;
  */
 public class WorkSpaceController implements Initializable {
 
+    @FXML
+    private Button btn_Menu;
+    @FXML
+    private Button btn_Settings;
+    @FXML
+    private JFXTextField jtf_search;
+    @FXML
+    private Button btn_timKiem;
+
     /**
      * Initializes the controller class.
      */
@@ -23,5 +37,19 @@ public class WorkSpaceController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @FXML
+    private void _Menu(ActionEvent event) {
+    }
+
+    @FXML
+    private void _Settings(ActionEvent event) {
+        ChangeScreen.loadWindow(getClass().getResource("/gui/DoiPassword.fxml"), "Đổi mật khẩu", null);
+      
+    }
+
+    @FXML
+    private void _timKiem(ActionEvent event) {
+    }
     
 }

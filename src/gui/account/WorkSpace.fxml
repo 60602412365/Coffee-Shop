@@ -8,12 +8,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="gui.account.WorkSpaceController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.account.WorkSpaceController">
    <children>
       <VBox prefHeight="600.0" prefWidth="159.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="300.0" prefWidth="159.0" text="Menu">
+            <Button fx:id="btn_Menu" mnemonicParsing="false" onAction="#_Menu" prefHeight="300.0" prefWidth="159.0" stylesheets="@WorkspaceColorPicker.css" text="Menu" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -22,7 +21,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="300.0" prefWidth="159.0" text="Settings">
+            <Button fx:id="btn_Settings" mnemonicParsing="false" onAction="#_Settings" prefHeight="300.0" prefWidth="159.0" stylesheets="@WorkspaceColorPicker.css" text="Settings">
                <graphic>
                   <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -37,8 +36,8 @@
          <children>
             <ButtonBar prefHeight="53.0" prefWidth="203.0">
               <buttons>
-                  <JFXTextField prefHeight="25.0" promptText="Search" />
-                <Button mnemonicParsing="false" prefHeight="31.0" text="Tìm kiếm" />
+                  <JFXTextField fx:id="jtf_search" prefHeight="25.0" promptText="Search" />
+                <Button fx:id="btn_timKiem" mnemonicParsing="false" onAction="#_timKiem" prefHeight="31.0" text="Tìm kiếm" />
               </buttons>
             </ButtonBar>
          </children>

@@ -67,3 +67,16 @@ insert into Account values
 ('AC00000005', 'username5', 	'password5',	N'Lương Nhật D'),
 ('AC00000006', 'username6', 	'password6',	N'Đinh Thanh H')
 go
+
+-- câu lệnh insert into
+Insert into Admin Values(01,'admin1',1,'myadmin1')
+insert into Admin values(03,'admin3',3,'myadmin3')
+
+Insert into Account Values(02,'employee2',2,'myemployee2')
+Insert into Account Values(03,'employee3',3,'myemployee2')
+
+Insert into Orders values('OrderID1',1,'2018-05-05',50000) -- YYYY--MM--DD
+Insert into Orders values('OrderID2',2,'2018-06-12',80000)
+
+Insert into Product Values('pID01','Cà phê sữa',15000,'cID01')
+Insert into Product Values('pID02','Cà phê đá',13000,'cID02')

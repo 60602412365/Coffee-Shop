@@ -189,7 +189,7 @@ public class ListAccountController implements Initializable {
             int i = pst.executeUpdate();
             if (i == 1)
             {
-                AlertMaker.AlertMaker.showSimpleAlert("Update Product", "Successfully!");
+                AlertMaker.AlertMaker.showSimpleAlert("Update Account", "Successfully!");
                 LoadDataFromDB();
                 ClearTextFields();
             }
@@ -203,6 +203,25 @@ public class ListAccountController implements Initializable {
 
     @FXML
     private void _Delete(ActionEvent event) {
+        String query = "Delete from Account where em_id = ?";
+        try
+        {
+            pst = conn.prepareStatement(query);
+            pst.setString(1,jtf_ID.getText());
+            int i = pst.executeUpdate();
+            if (i == 1)
+            {
+                AlertMaker.AlertMaker.showSimpleAlert("Xóa thông tin Account", "Thành công");
+                
+                LoadDataFromDB();
+                ClearTextFields();
+            }
+            
+        }
+        catch(SQLException ex)
+        {
+            
+        }
     }
     
 }

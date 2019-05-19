@@ -79,7 +79,7 @@ public class AdminWorkSpaceController implements Initializable {
             
             stage.setTitle("Login");
             stage.setScene(new Scene(root));
-            stage.show();
+            stage.show();   
             
         }
         catch(IOException ex)

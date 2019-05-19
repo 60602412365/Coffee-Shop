@@ -33,7 +33,7 @@ public class DBConnection {
             //2. tao ket noi den co so du lieu
             String url =  "jdbc:sqlserver://localhost:1433;databaseName=COFFEESHOP;user=sa;password=123456789";
             con = DriverManager.getConnection(url);
-          
+            
             System.out.println("Connected");
 
  

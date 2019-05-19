@@ -3,10 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/USER/Desktop/Coffee-Shop-master/src/AlertMaker/AlertMaker.java</file>
+            <file>file:/C:/Users/USER/Desktop/Coffee-Shop-master/src/entity/Product.java</file>
             <file>file:/C:/Users/USER/Desktop/Coffee-Shop-master/src/gui/admin/ListAccountController.java</file>
-            <file>file:/C:/Users/USER/Desktop/Coffee-Shop-master/src/connection/DBConnection.java</file>
-            <file>file:/C:/Users/USER/Desktop/Coffee-Shop-master/src/entity/Account.java</file>
+            <file>file:/C:/Users/USER/Desktop/Coffee-Shop-master/src/gui/admin/ListProductController.java</file>
             <file>file:/C:/Users/USER/Desktop/Coffee-Shop-master/src/Document/SQLQuery1.sql</file>
         </group>
     </open-files>
