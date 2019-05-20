@@ -3,10 +3,29 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/USER/Desktop/Coffee-Shop-master/src/entity/Product.java</file>
-            <file>file:/C:/Users/USER/Desktop/Coffee-Shop-master/src/gui/admin/ListAccountController.java</file>
-            <file>file:/C:/Users/USER/Desktop/Coffee-Shop-master/src/gui/admin/ListProductController.java</file>
-            <file>file:/C:/Users/USER/Desktop/Coffee-Shop-master/src/Document/SQLQuery1.sql</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/Coffee-Shop/src/dao/AccountDAO.java</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/Coffee-Shop/src/Utilities/ChangeScreen.java</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/Coffee-Shop/src/main/LoaderMain.java</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/Coffee-Shop/src/entity/Category.java</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/Coffee-Shop/src/gui/DoiPassword.fxml</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/Coffee-Shop/src/connection/DBConnection.java</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/Coffee-Shop/src/entity/Product.java</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/Coffee-Shop/src/gui/admin/ListAccountController.java</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/Coffee-Shop/src/gui/admin/ListProductController.java</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/Coffee-Shop/src/dao/OrderDAO.java</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/Coffee-Shop/src/entity/Admin.java</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/Coffee-Shop/src/dao/OrderDetailDAO.java</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/Coffee-Shop/nbproject/jfx-impl.xml</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/Coffee-Shop/src/gui/account/WorkSpaceController.java</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/Coffee-Shop/src/gui/admin/AdminWorkSpaceController.java</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/Coffee-Shop/src/gui/LoginController.java</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/Coffee-Shop/src/entity/Account.java</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/Coffee-Shop/src/dao/CategoryDAO.java</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/Coffee-Shop/src/gui/DoiPasswordController.java</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/Coffee-Shop/src/entity/Order.java</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/Coffee-Shop/src/Document/SQLQuery1.sql</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/Coffee-Shop/src/dao/AdminDAO.java</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/Coffee-Shop/src/entity/OrderDetail.java</file>
         </group>
     </open-files>
 </project-private>

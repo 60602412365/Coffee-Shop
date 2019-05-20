@@ -5,6 +5,8 @@
  */
 package entity;
 
+import java.sql.Date;
+import java.util.Vector;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -12,57 +14,98 @@ import javafx.beans.property.SimpleStringProperty;
  * @author PC
  */
 public class Order {
-    private SimpleStringProperty id, date, staffId, table, price;
+    private String id, accountid;
+    private java.sql.Date ordertime;
+    private float price, customerpay, payback;
 
-    public SimpleStringProperty getId() {
+    public String getAccountid() {
+        return accountid;
+    }
+
+    public void setAccountid(String accountid) {
+        this.accountid = accountid;
+    }
+
+    public Date getOrdertime() {
+        return ordertime;
+    }
+
+    public void setOrdertime(Date ordertime) {
+        this.ordertime = ordertime;
+    }
+
+    public float getCustomerpay() {
+        return customerpay;
+    }
+
+    public void setCustomerpay(float customerpay) {
+        this.customerpay = customerpay;
+    }
+
+    public float getPayback() {
+        return payback;
+    }
+
+    public void setPayback(float payback) {
+        this.payback = payback;
+    }
+    
+
+    public String getId() {
         return id;
     }
 
-    public void setId(SimpleStringProperty id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public SimpleStringProperty getDate() {
-        return date;
+    public Date getDate() {
+        return ordertime;
     }
 
-    public void setDate(SimpleStringProperty date) {
-        this.date = date;
+    public void setDate(Date date) {
+        this.ordertime = date;
     }
 
-    public SimpleStringProperty getStaffId() {
-        return staffId;
+    public String getAccountId() {
+        return accountid;
     }
 
-    public void setStaffId(SimpleStringProperty staffId) {
-        this.staffId = staffId;
+    public void setAccountId(String account) {
+        this.accountid = account;
     }
 
-    public SimpleStringProperty getTable() {
-        return table;
-    }
 
-    public void setTable(SimpleStringProperty table) {
-        this.table = table;
-    }
-
-    public SimpleStringProperty getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(SimpleStringProperty price) {
+    public void setPrice(float price) {
         this.price = price;
     }
     
-    public Order(String i , String d , String s, String t, String p){
-        this.id = new SimpleStringProperty(i);
-        this.date = new SimpleStringProperty(d);
-        this.staffId = new SimpleStringProperty(s);
-        this.table = new SimpleStringProperty(t);
-        this.price = new SimpleStringProperty(p);
+    public Order(String i , Date d , String a, float p , float cb, float pb ){
+        this.id = i;
+        this.ordertime = d;
+        this.accountid = a;
+        this.price = p;
+        this.customerpay = cb;
+        this.payback = pb;
     }
     
-    public Order(){
-        this(null, null, null, null, null);
+     public Vector toVector(){
+        Vector v = new Vector();
+        v.add(this.id);
+        v.add(this.ordertime);
+        v.add(this.accountid);
+        v.add(this.price);
+        v.add(this.customerpay);
+        v.add(this.payback);
+        
+        return v;
     }
+     
+    public Order() {
+    }
+    
 }

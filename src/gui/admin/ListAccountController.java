@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXTextField;
 import entity.Account;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -91,6 +92,7 @@ public class ListAccountController implements Initializable {
     }
     private void LoadDataFromDB()
     {
+      
         data.clear();
         try {
             pst = conn.prepareStatement("Select* from Account");
@@ -98,7 +100,7 @@ public class ListAccountController implements Initializable {
             
             while (rs.next())
             {
-                data.add(new Account(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4)));
+                data.add(new Account(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDate(5), rs.getString(6), rs.getString(7), rs.getString(8)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ListAccountController.class.getName()).log(Level.SEVERE, null, ex);

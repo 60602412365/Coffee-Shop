@@ -12,45 +12,45 @@ import javafx.beans.property.SimpleStringProperty;
  * @author PC
  */
 public class Product {
-    private SimpleStringProperty id, name, price, categoryId;
+    private String id, name, price, categoryId;
 
-    public SimpleStringProperty getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(SimpleStringProperty id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public SimpleStringProperty getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(SimpleStringProperty name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public SimpleStringProperty getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(SimpleStringProperty price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
-    public SimpleStringProperty getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(SimpleStringProperty categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
     
     public Product(String i, String n, String p, String c){
-        this.id = new SimpleStringProperty(i);
-        this.name = new SimpleStringProperty(n);
-        this.price = new SimpleStringProperty(p);
-        this.categoryId = new SimpleStringProperty(c);
+        this.id = i;
+        this.name = n ;
+        this.price =  p;
+        this.categoryId = c; 
     }
     
     public Product(){

@@ -5,6 +5,7 @@
  */
 package entity;
 
+import java.util.Vector;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -12,49 +13,46 @@ import javafx.beans.property.SimpleStringProperty;
  * @author PC
  */
 public class OrderDetail {
-    private SimpleStringProperty id, orderId, productId, quantity;
+    private String orderId, productId ;
+    private int quantity;
+    
 
-    public SimpleStringProperty getId() {
-        return id;
-    }
-
-    public void setId(SimpleStringProperty id) {
-        this.id = id;
-    }
-
-    public SimpleStringProperty getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(SimpleStringProperty orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 
-    public SimpleStringProperty getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(SimpleStringProperty productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
-    public SimpleStringProperty getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(SimpleStringProperty quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
     
-    public OrderDetail(String i, String o, String p, String q){
-        this.id = new SimpleStringProperty(i);
-        this.orderId = new SimpleStringProperty(o);
-        this.productId = new SimpleStringProperty(p);
-        this.quantity = new SimpleStringProperty(q);
+    public OrderDetail( String o, String p, int q){
+        this.orderId = o;
+        this.productId = p;
+        this.quantity = q;
     }
     
-    public OrderDetail(){
-        this(null, null, null, null);
+    public Vector toVector(){
+        Vector v = new Vector();
+        v.add(this.orderId);
+        v.add(this.productId);
+        v.add(this.quantity);
+        
+        return v;
     }
-    
 }

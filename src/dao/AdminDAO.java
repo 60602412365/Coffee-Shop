@@ -19,9 +19,11 @@ import java.util.logging.Logger;
  * @author PC
  */
 public class AdminDAO {
+    
+//SELF EDITING
     public static Admin check(String username, String pass)
     {
-        String sql = "SELECT * FROM tbAdmin WHERE username = ? AND pass = ?";
+        String sql = "SELECT * FROM Admin WHERE username = ? AND pass = ?";
         
         try(Connection cn = new DBConnection().getCon();
                 PreparedStatement st = cn.prepareStatement(sql);){
@@ -46,7 +48,7 @@ public class AdminDAO {
     //SELF EDITING
      public static int changePass(Admin old_admin, String newpass)
     {
-        String sql = "UPDATE tbAdmin SET pass = ? WHERE ad_id = ? AND username = ? AND pass = ?";
+        String sql = "UPDATE Admin SET pass = ? WHERE ad_id = ? AND username = ? AND pass = ?";
         
         try(Connection cn = new DBConnection().getCon();
                 PreparedStatement pst = cn.prepareStatement(sql);){
@@ -88,9 +90,11 @@ public class AdminDAO {
         
         return 0;
     }
-    // END SELF EDITING
+// END SELF EDITING
      
-    // HIGHT LEVEL PROCESS
-  
      
+     
+     
+     
+    
 }

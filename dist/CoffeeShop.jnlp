@@ -8,9 +8,9 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="CoffeeShop.jar" size="53471" download="eager" />
-    <jar href="lib\jfoenix-8.0.4.jar" size="2487326" download="eager" />
-    <jar href="lib\sqljdbc4.jar" size="466359" download="eager" />
+    <jar href="CoffeeShop.jar" size="62260" download="eager" />
+    <jar href="lib\jfoenix-8.0.8.jar" size="2708772" download="eager" />
+    <jar href="lib\sqljdbc42.jar" size="898868" download="eager" />
   </resources>
   <jfx:javafx-desc  width="800" height="600" main-class="main.LoaderMain"  name="CoffeeShop" />
   <update check="always"/>

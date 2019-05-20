@@ -211,10 +211,10 @@ public class ListProductController implements Initializable {
     private void bindingsFromTableViewtoTextField() {
         tbv_Product.setOnMouseClicked((MouseEvent event) -> {
            Product p = tbv_Product.getItems().get(tbv_Product.getSelectionModel().getSelectedIndex());
-           jtf_ID.setText(p.getId().toString());
-           jtf_Name.setText(p.getName().toString());
-           jtf_Price.setText(p.getPrice().toString());
-           jtf_categoryID.setText(p.getCategoryId().toString());
+           jtf_ID.setText(p.getId());
+           jtf_Name.setText(p.getName());
+           jtf_Price.setText(p.getPrice());
+           jtf_categoryID.setText(p.getCategoryId());
        });
     }
     private void ClearTextFields()

@@ -9,6 +9,12 @@ import AlertMaker.AlertMaker;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import dao.AccountDAO;
+import dao.AdminDAO;
+import entity.Account;
+import entity.Admin;
+import gui.account.WorkSpaceController;
+import gui.admin.AdminWorkSpaceController;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -48,6 +54,7 @@ public class LoginController implements Initializable {
     private JFXButton btn_Login;
     @FXML
     private AnchorPane anchorPane;
+    
 
     /**
      * Initializes the controller class.
@@ -126,26 +133,44 @@ public class LoginController implements Initializable {
 
     @FXML
     private void _login(ActionEvent event) throws IOException {
-        if(jtf_userName.getText().equals(getUsernameAdmin()) && jpf_passWord.getText().equals(getPasswordAdmin())){
+            String username = jtf_userName.getText().trim();
+        String password = jpf_passWord.getText().trim();
+        
+        
+        Admin ad = AdminDAO.check(username, password);
+        Account ac = AccountDAO.check(username, password);
+        
+        if(ad != null){
             Stage stage = (Stage) anchorPane.getScene().getWindow();
             stage.close();
-            Parent root = FXMLLoader.load(getClass().getResource("/gui/admin/AdminWorkSpace.fxml"));
+            
+            FXMLLoader  loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/gui/admin/AdminWorkSpace.fxml"));
+            Parent root = loader.load();
             Scene scene = new Scene(root);
+            AdminWorkSpaceController controller = loader.getController();
+            controller.setAdmin(ad);
             stage.setScene(scene);
             stage.show();
         }
         
-        else if(jtf_userName.getText().equals(getUsernameAccount()) && jpf_passWord.getText().equals(getPasswordAccount())){
+        else if(ac != null){
             Stage stage = (Stage) anchorPane.getScene().getWindow();
             stage.close();
-            Parent root = FXMLLoader.load(getClass().getResource("/gui/account/WorkSpace.fxml"));
+            
+            FXMLLoader  loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/gui/account/WorkSpace.fxml"));
+            Parent root = loader.load();
             Scene scene = new Scene(root);
+            WorkSpaceController controller = loader.getController();
+            controller.setAccount(ac);
             stage.setScene(scene);
             stage.show();
+        
         }
         else{
             AlertMaker alert = new AlertMaker();
-            alert.showSimpleAlert("Invalid Username of password","Invalid Username of password");
+            alert.showSimpleAlert("LOGIN WARNING","Login fail! Please check your Username and Password!");
         }
     }
     

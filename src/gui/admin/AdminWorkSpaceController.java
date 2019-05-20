@@ -12,6 +12,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import Utilities.ChangeScreen;
+import entity.Admin;
+import gui.DoiPasswordController;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -37,6 +39,7 @@ public class AdminWorkSpaceController implements Initializable {
     @FXML
     private Button btn_dangXuat;
 
+    private Admin ad;
     /**
      * Initializes the controller class.
      */
@@ -65,17 +68,28 @@ public class AdminWorkSpaceController implements Initializable {
     }
 
     @FXML
-    private void _doiMatKhau(ActionEvent event) {
-        ChangeScreen.loadWindow(getClass().getResource("/gui/DoiPassword.fxml"), "Đổi mật khẩu", null);
+    private void _doiMatKhau(ActionEvent event) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader  loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/gui/DoiPassword.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        DoiPasswordController controller = loader.getController();
+        controller.setAdmin(ad);
+        stage.setScene(scene);
+        stage.show();
+      
     }
 
     @FXML
     private void _dangXuat(ActionEvent event) {
         try
         {
+            Stage stage = (Stage) btn_quanLyNhanSu.getScene().getWindow();
+            stage.close();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Login.fxml"));
             Parent root = (Parent) loader.load();
-            Stage stage = new Stage();
+ 
             
             stage.setTitle("Login");
             stage.setScene(new Scene(root));
@@ -85,6 +99,9 @@ public class AdminWorkSpaceController implements Initializable {
         catch(IOException ex)
         {
         }
+    }
+     public void setAdmin(Admin admin) {
+        ad = admin;
     }
     
 }
