@@ -11,20 +11,24 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="477.0" prefWidth="665.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.admin.ListAccountController">
+<AnchorPane id="AnchorPane" prefHeight="477.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.admin.ListAccountController">
    <children>
-      <TableView fx:id="tbv_Accounts" layoutX="1.0" layoutY="73.0" prefHeight="409.0" prefWidth="396.0">
+      <TableView fx:id="tbv_Accounts" layoutX="1.0" layoutY="73.0" prefHeight="409.0" prefWidth="531.0">
         <columns>
             <TableColumn fx:id="tbCol_ID" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="tbCol_userName" prefWidth="75.0" text="userName" />
           <TableColumn fx:id="tbCol_passWord" prefWidth="75.0" text="passWord" />
             <TableColumn fx:id="tbCol_name" prefWidth="75.0" text="name" />
+            <TableColumn fx:id="tbCol_birthday" prefWidth="75.0" text="brthday" />
+            <TableColumn fx:id="tbCol_Address" prefWidth="75.0" text="address" />
+            <TableColumn fx:id="tbCol_email" prefWidth="75.0" text="email" />
+            <TableColumn fx:id="tbCol_phone" prefWidth="75.0" text="phone" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="btn_Add" layoutX="406.0" layoutY="390.0" mnemonicParsing="false" onAction="#_Add" prefHeight="44.0" prefWidth="66.0">
+      <Button fx:id="btn_Add" layoutX="545.0" layoutY="390.0" mnemonicParsing="false" onAction="#_Add" prefHeight="44.0" prefWidth="66.0">
          <graphic>
             <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -33,7 +37,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btn_edit" layoutX="579.0" layoutY="390.0" mnemonicParsing="false" onAction="#_edit" prefHeight="44.0" prefWidth="66.0">
+      <Button fx:id="btn_edit" layoutX="707.0" layoutY="390.0" mnemonicParsing="false" onAction="#_edit" prefHeight="44.0" prefWidth="66.0">
          <graphic>
             <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -42,7 +46,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btn_Delete" layoutX="494.0" layoutY="390.0" mnemonicParsing="false" onAction="#_Delete" prefHeight="44.0" prefWidth="66.0">
+      <Button fx:id="btn_Delete" layoutX="630.0" layoutY="390.0" mnemonicParsing="false" onAction="#_Delete" prefHeight="44.0" prefWidth="66.0">
          <graphic>
             <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -56,12 +60,16 @@
             <Font name="SansSerif Regular" size="20.0" />
          </font>
       </Label>
-      <VBox layoutX="420.0" layoutY="73.0" prefHeight="296.0" prefWidth="221.0">
+      <VBox layoutX="552.0" layoutY="73.0" prefHeight="296.0" prefWidth="221.0">
          <children>
             <JFXTextField fx:id="jtf_ID" prefHeight="34.0" prefWidth="221.0" promptText="ID" />
             <JFXTextField fx:id="jtf_userName" prefHeight="34.0" prefWidth="232.0" promptText="userName" />
             <JFXTextField fx:id="jtf_passWord" prefHeight="34.0" prefWidth="232.0" promptText="passWord" />
             <JFXTextField fx:id="jtf_name" prefHeight="34.0" prefWidth="232.0" promptText="name" />
+            <JFXTextField fx:id="jtf_birthday" prefHeight="34.0" prefWidth="221.0" promptText="birthday" />
+            <JFXTextField fx:id="jtf_address" prefHeight="34.0" prefWidth="232.0" promptText="address" />
+            <JFXTextField fx:id="jtf_email" prefHeight="34.0" prefWidth="232.0" promptText="email" />
+            <JFXTextField fx:id="jtf_phone" prefHeight="34.0" prefWidth="232.0" promptText="phone" />
          </children>
       </VBox>
    </children>

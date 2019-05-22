@@ -52,7 +52,7 @@ public class DoiPasswordController implements Initializable {
         String passnew = new String(tf_passwordNew.getText().trim());
         String passcon = new String (tf_passwordConfirm.getText().trim());
         if(ad != null){
-            if(!(ad.getPassWord().equals(old))){
+            if(!(ad.getPassword().equals(old))){
                 AlertMaker alert = new AlertMaker();
                 alert.showSimpleAlert("WARNING", "Old password is incorrect!");
             }
@@ -70,7 +70,7 @@ public class DoiPasswordController implements Initializable {
         }
         
         if(ac != null){
-            if(!(ac.getPassWord().equals(old))){
+            if(!(ac.getPassword().equals(old))){
                 AlertMaker alert = new AlertMaker();
                 alert.showSimpleAlert("WARNING", "Old password is incorrect!");
             }

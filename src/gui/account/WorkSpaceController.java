@@ -14,11 +14,24 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import Utilities.ChangeScreen;
 import entity.Account;
+import entity.Product;
 import gui.DoiPasswordController;
+import gui.admin.ListProductController;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -40,20 +53,42 @@ public class WorkSpaceController implements Initializable {
     
     Account ac;
     @FXML
-    private AnchorPane anchorpane1;
-
+    private TableView<Product> tbv_Product;
+    @FXML
+    private TableColumn<?, ?> tbCol_productID;
+    @FXML
+    private TableColumn<?, ?> tbCol_name;
+    @FXML
+    private TableColumn<?, ?> tbCol_price;
+    @FXML
+    private TableColumn<?, ?> tbCol_categoryID;
+    
+    private Connection conn = null;
+    private PreparedStatement pst = null;
+    private ResultSet rs = null;
+    private ObservableList<Product> data; 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        conn = connection.DBConnection.getCon();
+        data = FXCollections.observableArrayList();
+      
     }    
-
+    private void setCellTable()
+    {
+        tbCol_productID.setCellValueFactory(new PropertyValueFactory<>("product_id"));
+        tbCol_name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tbCol_price.setCellValueFactory(new PropertyValueFactory<>("price"));
+        tbCol_categoryID.setCellValueFactory(new PropertyValueFactory<>("category_id"));
+    }
     @FXML
     private void _Menu(ActionEvent event) throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("/gui/admin/ListProduct.fxml"));
-        anchorpane1.getChildren().setAll(pane);
+        
+        setCellTable();
+        LoadDataFromDB();
     }
 
     @FXML
@@ -68,8 +103,26 @@ public class WorkSpaceController implements Initializable {
         controller.setAccount(ac);
         stage.setScene(scene);
         stage.show();
+        
+        
     }
-
+    private void LoadDataFromDB()
+    {
+        data.clear();
+        try {
+            pst = conn.prepareStatement("Select * from Product");
+            rs = pst.executeQuery();
+            
+            while (rs.next())
+            {
+                data.add(new Product(rs.getString(1),rs.getString(2), +rs.getFloat(3),rs.getString(4)));
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ListProductController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tbv_Product.setItems(data);
+    }
     @FXML
     private void _timKiem(ActionEvent event) {
     }

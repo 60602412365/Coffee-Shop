@@ -12,25 +12,29 @@ import javafx.beans.property.SimpleStringProperty;
  *
  * @author PC
  */
-public class OrderDetail {
-    private String orderId, productId ;
+public class OrderDetails {
+    private String order_id, product_id ;
     private int quantity;
+
+    public OrderDetails() {
+       
+    }
     
 
-    public String getOrderId() {
-        return orderId;
+    public String getOrder_id() {
+        return order_id;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public void setOrder_id(String orderId) {
+        this.order_id = orderId;
     }
 
-    public String getProductId() {
-        return productId;
+    public String getProduct_id() {
+        return product_id;
     }
 
-    public void setProductId(String productId) {
-        this.productId = productId;
+    public void setProduct_id(String productId) {
+        this.product_id = productId;
     }
 
     public int getQuantity() {
@@ -41,16 +45,16 @@ public class OrderDetail {
         this.quantity = quantity;
     }
     
-    public OrderDetail( String o, String p, int q){
-        this.orderId = o;
-        this.productId = p;
+    public OrderDetails( String o, String p, int q){
+        this.order_id = o;
+        this.product_id = p;
         this.quantity = q;
     }
     
     public Vector toVector(){
         Vector v = new Vector();
-        v.add(this.orderId);
-        v.add(this.productId);
+        v.add(this.order_id);
+        v.add(this.product_id);
         v.add(this.quantity);
         
         return v;

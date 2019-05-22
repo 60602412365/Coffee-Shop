@@ -37,13 +37,13 @@ public class ListProductController implements Initializable {
     @FXML
     private TableView<Product> tbv_Product;
     @FXML
-    private TableColumn<?, ?> tbCol_ID;
+    private TableColumn<Product, String> tbCol_ID;
     @FXML
-    private TableColumn<?, ?> tbCol_Name;
+    private TableColumn<Product, String> tbCol_Name;
     @FXML
-    private TableColumn<?, ?> tbCol_Price;
+    private TableColumn<Product, Float> tbCol_Price;
     @FXML
-    private TableColumn<?, ?> tbCol_categoryID;
+    private TableColumn<Product, String> tbCol_categoryID;
     @FXML
     private Button btn_Add;
     @FXML
@@ -195,12 +195,13 @@ public class ListProductController implements Initializable {
     private void LoadDataFromDB() {
         data.clear();
         try {
-            pst = conn.prepareStatement("Select* from Product");
+            pst = conn.prepareStatement("Select * from Product");
             rs = pst.executeQuery();
             
             while (rs.next())
             {
-                data.add(new Product(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4)));
+                data.add(new Product(rs.getString(1),rs.getString(2), +rs.getFloat(3),rs.getString(4)));
+                
             }
         } catch (SQLException ex) {
             Logger.getLogger(ListProductController.class.getName()).log(Level.SEVERE, null, ex);
@@ -211,10 +212,11 @@ public class ListProductController implements Initializable {
     private void bindingsFromTableViewtoTextField() {
         tbv_Product.setOnMouseClicked((MouseEvent event) -> {
            Product p = tbv_Product.getItems().get(tbv_Product.getSelectionModel().getSelectedIndex());
-           jtf_ID.setText(p.getId());
+           jtf_ID.setText(p.getProduct_id());
            jtf_Name.setText(p.getName());
-           jtf_Price.setText(p.getPrice());
-           jtf_categoryID.setText(p.getCategoryId());
+           jtf_Price.setText(Float.toString(p.getPrice()));
+           jtf_categoryID.setText(p.getCategory_id());
+           
        });
     }
     private void ClearTextFields()

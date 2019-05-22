@@ -13,17 +13,17 @@ import javafx.beans.property.SimpleStringProperty;
  *
  * @author PC
  */
-public class Order {
-    private String id, accountid;
+public class Orders {
+    private String order_id, account_id;
     private java.sql.Date ordertime;
     private float price, customerpay, payback;
 
-    public String getAccountid() {
-        return accountid;
+    public String getAccount_id() {
+        return account_id;
     }
 
-    public void setAccountid(String accountid) {
-        this.accountid = accountid;
+    public void setAccount_id(String accountid) {
+        this.account_id = accountid;
     }
 
     public Date getOrdertime() {
@@ -51,12 +51,12 @@ public class Order {
     }
     
 
-    public String getId() {
-        return id;
+    public String getOrder_id() {
+        return order_id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setOrder_id(String id) {
+        this.order_id = id;
     }
 
     public Date getDate() {
@@ -67,15 +67,6 @@ public class Order {
         this.ordertime = date;
     }
 
-    public String getAccountId() {
-        return accountid;
-    }
-
-    public void setAccountId(String account) {
-        this.accountid = account;
-    }
-
-
     public float getPrice() {
         return price;
     }
@@ -84,10 +75,10 @@ public class Order {
         this.price = price;
     }
     
-    public Order(String i , Date d , String a, float p , float cb, float pb ){
-        this.id = i;
+    public Orders(String i , Date d , String a, float p , float cb, float pb ){
+        this.order_id = i;
         this.ordertime = d;
-        this.accountid = a;
+        this.account_id = a;
         this.price = p;
         this.customerpay = cb;
         this.payback = pb;
@@ -95,9 +86,9 @@ public class Order {
     
      public Vector toVector(){
         Vector v = new Vector();
-        v.add(this.id);
+        v.add(this.order_id);
         v.add(this.ordertime);
-        v.add(this.accountid);
+        v.add(this.account_id);
         v.add(this.price);
         v.add(this.customerpay);
         v.add(this.payback);
@@ -105,7 +96,7 @@ public class Order {
         return v;
     }
      
-    public Order() {
+    public Orders() {
     }
     
 }

@@ -65,6 +65,23 @@ public class ListAccountController implements Initializable {
     private PreparedStatement pst = null;
     private ResultSet rs = null;
     private ObservableList<Account> data; 
+    
+    @FXML
+    private TableColumn<?, ?> tbCol_birthday;
+    @FXML
+    private TableColumn<?, ?> tbCol_Address;
+    @FXML
+    private TableColumn<?, ?> tbCol_email;
+    @FXML
+    private TableColumn<?, ?> tbCol_phone;
+    @FXML
+    private JFXTextField jtf_birthday;
+    @FXML
+    private JFXTextField jtf_address;
+    @FXML
+    private JFXTextField jtf_email;
+    @FXML
+    private JFXTextField jtf_phone;
     /**
      * Initializes the controller class.
      */
@@ -83,12 +100,14 @@ public class ListAccountController implements Initializable {
     */
     private void setCellTable()
     {
-        tbCol_ID.setCellValueFactory(new PropertyValueFactory<>("id"));
-        tbCol_userName.setCellValueFactory(new PropertyValueFactory<>("userName"));
-        tbCol_passWord.setCellValueFactory(new PropertyValueFactory<>("passWord"));
+        tbCol_ID.setCellValueFactory(new PropertyValueFactory<>("account_id"));
+        tbCol_userName.setCellValueFactory(new PropertyValueFactory<>("username"));
+        tbCol_passWord.setCellValueFactory(new PropertyValueFactory<>("password"));
         tbCol_name.setCellValueFactory(new PropertyValueFactory<>("name"));
-        
-        
+        tbCol_birthday.setCellValueFactory(new PropertyValueFactory<>("birth_day"));
+        tbCol_Address.setCellValueFactory(new PropertyValueFactory<>("address"));
+        tbCol_email.setCellValueFactory(new PropertyValueFactory<>("email"));
+        tbCol_phone.setCellValueFactory(new PropertyValueFactory<>("phone"));
     }
     private void LoadDataFromDB()
     {
@@ -111,10 +130,14 @@ public class ListAccountController implements Initializable {
     {
        tbv_Accounts.setOnMouseClicked((MouseEvent event) -> {
            Account a = tbv_Accounts.getItems().get(tbv_Accounts.getSelectionModel().getSelectedIndex());
-           jtf_ID.setText(a.getId());
-           jtf_userName.setText(a.getUserName());
-           jtf_passWord.setText(a.getPassWord());
+           jtf_ID.setText(a.getAccount_id());
+           jtf_userName.setText(a.getUsername());
+           jtf_passWord.setText(a.getPassword());
            jtf_name.setText(a.getName());
+           jtf_birthday.setText(a.getBirth_day().toString());
+           jtf_address.setText(a.getAddress());
+           jtf_email.setText(a.getEmail());
+           jtf_phone.setText(a.getPhone());
        });
     }
     private void ClearTextFields()
@@ -123,6 +146,10 @@ public class ListAccountController implements Initializable {
         jtf_userName.clear();
         jtf_passWord.clear();
         jtf_name.clear();
+        jtf_birthday.clear();
+        jtf_address.clear();
+        jtf_email.clear();
+        jtf_phone.clear();
     }
     
     
@@ -134,7 +161,10 @@ public class ListAccountController implements Initializable {
         String userName = jtf_userName.getText();
         String passWord = jtf_passWord.getText();
         String name =jtf_name.getText();
-        
+        String birthday = jtf_birthday.getText();
+        String address = jtf_address.getText();
+        String email = jtf_email.getText();
+        String phone = jtf_phone.getText();
         try
         {
             pst = conn.prepareStatement(query);
@@ -142,6 +172,10 @@ public class ListAccountController implements Initializable {
             pst.setString(2,userName);
             pst.setString(3,passWord);
             pst.setString(4,name);
+            pst.setString(5, birthday);
+            pst.setString(6,address);
+            pst.setString(7,email);
+            pst.setString(8,phone);
             
             int i = pst.executeUpdate();
             if (i == 1)
@@ -175,7 +209,10 @@ public class ListAccountController implements Initializable {
             String userName = jtf_userName.getText();
             String passWord = jtf_passWord.getText();
             String name = jtf_name.getText();
-            
+            String birthday = jtf_birthday.getText();
+            String address = jtf_address.getText();
+            String email = jtf_email.getText();
+            String phone = jtf_phone.getText();
             
             if (ID.isEmpty() || userName.isEmpty() || passWord.isEmpty() || name.isEmpty())
             {
@@ -187,6 +224,10 @@ public class ListAccountController implements Initializable {
             pst.setString(2, userName);
             pst.setString(3, passWord);
             pst.setString(4, name);
+            pst.setString(5, birthday);
+            pst.setString(6,address);
+            pst.setString(7,email);
+            pst.setString(8,phone);
             
             int i = pst.executeUpdate();
             if (i == 1)

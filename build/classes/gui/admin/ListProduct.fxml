@@ -16,7 +16,7 @@
    <children>
       <TableView fx:id="tbv_Product" layoutY="67.0" prefHeight="413.0" prefWidth="371.0">
         <columns>
-          <TableColumn fx:id="tbCol_ID" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="tbCol_ID" prefWidth="75.0" text="product_id" />
           <TableColumn fx:id="tbCol_Name" prefWidth="75.0" text="Name" />
             <TableColumn fx:id="tbCol_Price" prefWidth="75.0" text="Price" />
             <TableColumn fx:id="tbCol_categoryID" prefWidth="75.0" text="categoryID" />

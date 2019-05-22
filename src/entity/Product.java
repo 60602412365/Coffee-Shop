@@ -12,14 +12,15 @@ import javafx.beans.property.SimpleStringProperty;
  * @author PC
  */
 public class Product {
-    private String id, name, price, categoryId;
-
-    public String getId() {
-        return id;
+    private String product_id, name, category_id;
+    float price;
+    
+    public String getProduct_id() {
+        return product_id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setProduct_id(String id) {
+        this.product_id = id;
     }
 
     public String getName() {
@@ -30,30 +31,31 @@ public class Product {
         this.name = name;
     }
 
-    public String getPrice() {
+    public float getPrice() {
         return price;
     }
+  
 
-    public void setPrice(String price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
-    public String getCategoryId() {
-        return categoryId;
+    public String getCategory_id() {
+        return category_id;
     }
 
     public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
+        this.category_id = categoryId;
     }
     
-    public Product(String i, String n, String p, String c){
-        this.id = i;
+    public Product(String i, String n, float p, String c){
+        this.product_id = i;
         this.name = n ;
         this.price =  p;
-        this.categoryId = c; 
+        this.category_id = c; 
     }
     
+    
     public Product(){
-        this(null, null, null, null);
     }
 }

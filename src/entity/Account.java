@@ -15,7 +15,39 @@ import java.util.Vector;
 
 
 public class Account {
-    private String id, userName, passWord, name, phone, email, address ;
+    private String account_id, username, password, name, phone, email, address ;
+
+    public String getAccount_id() {
+        return account_id;
+    }
+
+    public void setAccount_id(String account_id) {
+        this.account_id = account_id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
     private java.sql.Date birth_day;
 
     public String getPhone() {
@@ -41,31 +73,6 @@ public class Account {
     public void setBirth_day(Date birth_day) {
         this.birth_day = birth_day;
     }
-    
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassWord() {
-        return passWord;
-    }
-
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
-    }
 
     public String getName() {
         return name;
@@ -76,9 +83,9 @@ public class Account {
     }
     
     public Account(String i, String username, String pass, String ten, Date birth, String add, String em, String pho ){
-        this.id = i;
-        this.userName = username;
-        this.passWord = pass;
+        this.account_id = i;
+        this.username = username;
+        this.password = pass;
         this.name = ten;
         this.birth_day = birth;
         this.address = add;
@@ -89,9 +96,9 @@ public class Account {
     public Vector toVector()
     {
         Vector v = new Vector();
-        v.add(this.id);
-        v.add(this.userName);
-        v.add(this.passWord);
+        v.add(this.account_id);
+        v.add(this.username);
+        v.add(this.password);
         v.add(this.name);
         v.add(this.birth_day);
         v.add(this.address);

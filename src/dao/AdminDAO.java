@@ -54,9 +54,9 @@ public class AdminDAO {
                 PreparedStatement pst = cn.prepareStatement(sql);){
             
             pst.setString(1, newpass);
-            pst.setString(2, old_admin.getAdId());
-            pst.setString(3, old_admin.getUserName());
-            pst.setString(4, old_admin.getPassWord());
+            pst.setString(2, old_admin.getAdmin_id());
+            pst.setString(3, old_admin.getUsername());
+            pst.setString(4, old_admin.getPassword());
             
             return pst.executeUpdate();
             
@@ -77,9 +77,9 @@ public class AdminDAO {
             st.setString(1, newusername);
             st.setString(2, newpass);
             st.setString(3, newname);
-            st.setString(4, old_admin.getAdId());
-            st.setString(5, old_admin.getUserName());
-            st.setString(6, old_admin.getPassWord());
+            st.setString(4, old_admin.getAdmin_id());
+            st.setString(5, old_admin.getUsername());
+            st.setString(6, old_admin.getPassword());
             
             return st.executeUpdate();
             

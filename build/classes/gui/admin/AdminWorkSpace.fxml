@@ -31,11 +31,11 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="btn_quanLyBan" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#_quanLyBan" prefHeight="76.0" prefWidth="238.0" stylesheets="@AdminWorkSpaceColorPicker.css" text="Quản lý Bàn" textFill="#eeeaea">
+            <Button fx:id="btn_quanLyBan" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#_quanLyBan" prefHeight="76.0" prefWidth="238.0" stylesheets="@AdminWorkSpaceColorPicker.css" text="Quản lý hóa đơn" textFill="#eeeaea">
                <graphic>
                   <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../Images/table_32px.png" />
+                        <Image url="@../../Images/bill_32px.png" />
                      </image>
                   </ImageView>
                </graphic>

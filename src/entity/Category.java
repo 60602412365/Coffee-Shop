@@ -12,27 +12,27 @@ import javafx.beans.property.SimpleStringProperty;
  * @author PC
  */
 public class Category {
-    private SimpleStringProperty id, name;
+    private String category_id, name;
 
-    public SimpleStringProperty getId() {
-        return id;
+    public String getCategory_id() {
+        return category_id;
     }
 
-    public void setId(SimpleStringProperty id) {
-        this.id = id;
+    public void setCategory_id(String id) {
+        this.category_id = id;
     }
 
-    public SimpleStringProperty getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(SimpleStringProperty name) {
+    public void setName(String name) {
         this.name = name;
     }
 
     public Category(String i, String n) {
-        this.id = new SimpleStringProperty(i);
-        this.name = new SimpleStringProperty(n);
+        this.category_id = i;
+        this.name = n;
     }
     
     public Category(){

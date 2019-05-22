@@ -13,46 +13,46 @@ import javafx.beans.property.SimpleStringProperty;
  * @author PC
  */
 public class Admin implements java.io.Serializable{
-    private String adId, userName, passWord;
+    private String admin_id, username, password;
 
   public Vector toVector()
     {
         Vector v = new Vector();
-        v.add(adId);
-        v.add(userName);
-        v.add(passWord);
+        v.add(admin_id);
+        v.add(username);
+        v.add(password);
         
         return v;
     }
 
-    public String getAdId() {
-        return adId;
+    public String getAdmin_id() {
+        return admin_id;
     }
 
-    public void setAd_id(String ad_id) {
-        this.adId = ad_id;
+    public void setAdmin_id(String ad_id) {
+        this.admin_id = ad_id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String name) {
+        this.username = name;
     }
 
-    public String getPassWord() {
-        return passWord;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
+    public void setPassword(String passWord) {
+        this.password = passWord;
     }
     
-    public Admin(String id, String username, String pass) {
-        this.adId = id;
-        this.userName = username;
-        this.passWord = pass;
+    public Admin(String id, String name, String pass) {
+        this.admin_id = id;
+        this.username = name;
+        this.password = pass;
     }
     
     public Admin(){

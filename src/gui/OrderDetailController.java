@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui.admin;
+package gui;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,7 +14,7 @@ import javafx.fxml.Initializable;
  *
  * @author PC
  */
-public class ListTableController implements Initializable {
+public class OrderDetailController implements Initializable {
 
     /**
      * Initializes the controller class.
