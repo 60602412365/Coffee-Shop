@@ -1,11 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.admin.ListOrderController">
-    
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.admin.ListOrderController">
+   <children>
+      <AnchorPane layoutX="40.0" layoutY="200.0" prefHeight="400.0" prefWidth="400.0">
+         <children>
+            <TableView layoutX="-26.0" prefHeight="400.0" prefWidth="485.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="Order ID" />
+                <TableColumn prefWidth="75.0" text="Account ID" />
+                  <TableColumn prefWidth="75.0" text="Order Time" />
+                  <TableColumn prefWidth="75.0" text="Price" />
+                  <TableColumn prefWidth="105.0" text="Customer Pay" />
+                  <TableColumn prefWidth="75.0" text="Pay Back" />
+              </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="562.0" layoutY="-1.0" prefHeight="200.0" prefWidth="400.0">
+         <children>
+            <Label layoutX="53.0" layoutY="25.0" text="Order Details" />
+            <Label layoutX="48.0" layoutY="67.0" text="Order ID" />
+            <Label layoutX="48.0" layoutY="92.0" text="Product ID" />
+            <Label layoutX="48.0" layoutY="152.0" text="Quantity" />
+            <Label layoutX="48.0" layoutY="121.0" text="Name" />
+            <Label layoutX="123.0" layoutY="67.0" text="order id" />
+            <Label layoutX="123.0" layoutY="92.0" text="product id" />
+            <Label layoutX="123.0" layoutY="152.0" text="quantity" />
+            <Label layoutX="123.0" layoutY="121.0" text="name" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="562.0" layoutY="200.0" prefHeight="400.0" prefWidth="400.0">
+         <children>
+            <TableView prefHeight="400.0" prefWidth="400.0">
+               <columns>
+                  <TableColumn prefWidth="75.0" text="Order ID" />
+                  <TableColumn prefWidth="75.0" text="Product ID" />
+                  <TableColumn prefWidth="75.0" text="Name" />
+                  <TableColumn prefWidth="75.0" text="Quantity" />
+               </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+      <JFXButton layoutX="500.0" layoutY="275.0" text="Chi tiết" />
+      <AnchorPane layoutX="58.0" layoutY="-1.0" prefHeight="200.0" prefWidth="400.0">
+         <children>
+            <Label layoutX="54.0" layoutY="27.0" text="Orders" />
+            <Label layoutX="40.0" layoutY="69.0" text="Order ID" />
+            <Label layoutX="40.0" layoutY="100.0" text="Account ID" />
+            <Label layoutX="40.0" layoutY="127.0" text="Order Time" />
+            <Label layoutX="225.0" layoutY="69.0" text="Price" />
+            <Label layoutX="225.0" layoutY="100.0" text="Customer Pay" />
+            <Label layoutX="225.0" layoutY="127.0" text="Pay Back" />
+            <Label layoutX="109.0" layoutY="71.0" text="order id" />
+            <Label layoutX="109.0" layoutY="102.0" text="account id" />
+            <Label layoutX="109.0" layoutY="129.0" text="order time" />
+            <Label layoutX="312.0" layoutY="73.0" text="price" />
+            <Label layoutX="312.0" layoutY="104.0" text="customer pay" />
+            <Label layoutX="312.0" layoutY="131.0" text="pay back" />
+         </children></AnchorPane>
+   </children>
 </AnchorPane>
