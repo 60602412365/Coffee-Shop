@@ -7,6 +7,7 @@ GO
 USE COFFEESHOP
 GO
 
+DELETE Account
 
 --ACCOUNT
 create table Admin (
@@ -21,7 +22,7 @@ create table Account (
 	em_id varchar(10) not null			constraint pk_accountid primary key,
 	username varchar(50) not null,
 	pass varchar(50) not null,
-	name nvarchar(50) not null		
+	name nvarchar(50) not null,	
 	birth date not null,				constraint chk_birthday check(year(birth) <= (year(getdate()) - 18)),
 	addr nvarchar(200) null,
 	email varchar(50) null,
@@ -46,6 +47,7 @@ create table Product(
 )
 go
 	
+
 --END MENU
 
 --ORDER
@@ -75,12 +77,12 @@ go
 
 
 insert into Account values
-('AC00000001', 'username1', 	'password1',	N'Phạm Thanh A',	'1998-01-01',	N'KTX Khu A - DHQG-HCM',	'example_email1@gmail.com',		'0969876940',	 0),
-('AC00000002', 'username2', 	'password2',	N'Nguyễn Khánh D',	'1998-01-02',	N'KTX Khu B - DHQG-HCM',	'example_email2@gmail.com',		'0964753827',	 0),
-('AC00000003', 'username3', 	'password3',	N'Lý Đông N',		'1997-01-04',	N'KTX Khu A - DHQG-HCM',	'example_email3@gmail.com',		'0965164474',	 0),
-('AC00000004', 'username4', 	'password4',	N'Bảo N',			'2000-01-04',	N'KTX Khu B - DHQG-HCM',	'example_email4@gmail.com',		'01215925627',	 0),
-('AC00000005', 'username5', 	'password5',	N'Lương Nhật D',	'2000-05-05',	N'KTX Khu B - DHQG-HCM',	'example_email5@gmail.com',		'01207305775',	 0),
-('AC00000006', 'username6', 	'password6',	N'Đinh Thanh H',	'1997-12-12',	N'KTX Khu A - DHQG-HCM',	'example_email6@gmail.com',		'0916466886',	 0)
+('AC00000001', 'username1', 	'password1',	N'Phạm Thanh A',	'1998-01-01',	N'KTX Khu A - DHQG-HCM',	'example_email1@gmail.com',		'0969876940'),
+('AC00000002', 'username2', 	'password2',	N'Nguyễn Khánh D',	'1998-01-02',	N'KTX Khu B - DHQG-HCM',	'example_email2@gmail.com',		'0964753827'),
+('AC00000003', 'username3', 	'password3',	N'Lý Đông N',		'1997-01-04',	N'KTX Khu A - DHQG-HCM',	'example_email3@gmail.com',		'0965164474'),
+('AC00000004', 'username4', 	'password4',	N'Bảo N',			'2000-01-04',	N'KTX Khu B - DHQG-HCM',	'example_email4@gmail.com',		'01215925627'),
+('AC00000005', 'username5', 	'password5',	N'Lương Nhật D',	'2000-05-05',	N'KTX Khu B - DHQG-HCM',	'example_email5@gmail.com',		'01207305775'),
+('AC00000006', 'username6', 	'password6',	N'Đinh Thanh H',	'1997-12-12',	N'KTX Khu A - DHQG-HCM',	'example_email6@gmail.com',		'0916466886')
 go
 
 

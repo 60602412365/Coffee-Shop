@@ -17,7 +17,7 @@
          <children>
             <Button fx:id="btn_Menu" mnemonicParsing="false" onAction="#_Menu" prefHeight="300.0" prefWidth="159.0" stylesheets="@WorkspaceColorPicker.css" text="Menu" textFill="WHITE">
                <graphic>
-                  <ImageView fx:id="btn_Menu" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../Images/top_menu_24px.png" />
                      </image>
