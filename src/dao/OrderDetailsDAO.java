@@ -21,7 +21,17 @@ import java.util.logging.Logger;
  * @author PC
  */
 public class OrderDetailsDAO {
+    public static OrderDetails CreatedOrderDetails(String order_id){
+        return null;   
+    }
     
+    public static OrderDetails UpdateOrderDetails(String order_id, String product_id, int quantity){
+        return null;   
+    }
+    
+     public static OrderDetails DeleteOrderDetails(String order_id){
+        return null;   
+    }
      public static List<OrderDetails> getList()
     {
         List<OrderDetails> ds = new ArrayList<>();
@@ -82,5 +92,4 @@ public class OrderDetailsDAO {
         
         return 0;
     }
-    
 }

@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import com.jfoenix.controls.JFXButton;
+import dao.OrderDetailsDAO;
 import dao.OrdersDAO;
 import entity.Account;
 import entity.OrderDetails;
@@ -25,6 +26,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -74,12 +77,12 @@ public class WorkSpaceController implements Initializable {
     private PreparedStatement pst = null;
     private ResultSet rs = null;
     private ObservableList<Product> data; 
-    private ObservableList<Orders> data2;
+    private ObservableList<OrderDetails> data2;
     
     @FXML
     private AnchorPane rootPane;
     @FXML
-    private TableView<Orders> tbv_Orders;
+    private TableView<OrderDetails> tbv_Orders;
     @FXML
     private TableColumn<?, ?> tbCol_OrderID;
     @FXML
@@ -202,25 +205,165 @@ public class WorkSpaceController implements Initializable {
         return null;
     }
     
-   
+    private void loadOrdersDetailFromDB()
+    {
+        data2.clear();
+            
+    }
+    private String autoOrderID()
+    {
+        String orderID = "oID00000";
+        try {
+            pst = conn.prepareStatement("select max(order_id from Orders");
+            rs = pst.executeQuery();
+            if (rs.next())
+            {
+                int n = Integer.parseInt(orderID.substring(3)) + 1;
+                int m = String.valueOf(n).length();
+                orderID = orderID.substring(0, 8 - m) + String.valueOf(n);
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(WorkSpaceController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return orderID;
+    }
+    private String getRealTimeDate()
+    {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy//MM//dd HH:mm:ss" );
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
     @FXML
-    private void _Add(ActionEvent event) {
+    private void _Add(ActionEvent event) throws SQLException {
         
-        OrdersDAO.insert(entry);
+        //OrdersDAO.insert(entry);
+        String query = "Insert into Orders values (?,?,?,?,?,?)";
+        String query2 = "Insert into OrderDetails values (?,?,?)";
         
-        String quantity = jtf_quantity.getText(); 
+        String orderid = autoOrderID();
+        float quantity = Float.valueOf(jtf_quantity.getText()); 
         String productID = label_ofProductID.getText();
         String price = label_ofPrice.getText();
+        String date = getRealTimeDate();
+        String accountID = ac.getAccount_id();
         
-        if (quantity.isEmpty())
+        String Quantity = String.valueOf(quantity);
+        
+        
+        if ( Quantity.isEmpty())
         {
             AlertMaker.AlertMaker.showErrorMessage("Errors", "Please fills in quantity text field");
         }
         
+        try
+        {
+            pst = conn.prepareStatement(query);
+            pst.setString(1, orderid);
+            pst.setString(2, accountID);
+            pst.setString(3,date);
+            pst.setString(4, price);
+            pst.setFloat(5, 0);
+            pst.setFloat(6, 0);
+            
+            int i = pst.executeUpdate();
+            if (i == 1)
+            {
+                AlertMaker.AlertMaker.showSimpleAlert("Add", "Successfully");
+            }
+        }
+        catch(SQLException ex)
+        {
+            
+        }
+        finally
+        {
+            pst.close();
+        }
+        
+        try
+        {
+            pst = conn.prepareStatement(query2);
+            pst.setString(1, orderid);
+            pst.setString(2, productID);
+            pst.setFloat(3, quantity);
+            int i = pst.executeUpdate();
+            if (i == 1)
+            {
+                setCell();
+                LoadData(orderid);
+            }
+        }
+        catch(SQLException ex)
+        {
+            
+        }
+        /*try 
+        {
+            pst = conn.prepareStatement(query);
+            pst.setString(1, orderid);
+            pst.setString(2, date);
+            pst.setString(3, accountID);
+            pst.setString(4, date);
+            pst.setString(5, orderid);
+            pst.setString(6, date);
+            int i = pst.executeUpdate();
+            if (i == 1)
+            {
+                AlertMaker.AlertMaker.showSimpleAlert("Add", "Successful!");
+                
+                clearQuantityfield();
+            }
+        }
+        catch(SQLException ex)
+        {
+            
+        }
+        */
+        
+      
+        
         //data2.add(e)
         
     }
-
+    private void setCell()
+    {
+        tbCol_OrderID.setCellValueFactory(new PropertyValueFactory<>("order_id"));
+        tbCol_ProductID.setCellValueFactory(new PropertyValueFactory<>("product_id"));
+        tbCol_quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+                
+    }
+    private void LoadData(String orderid) throws SQLException
+    {
+        data2.clear();
+        
+        try 
+        {
+            String query = "Select* from OrderDetails"
+                    + "Where order_id = ?";
+                            
+            pst = conn.prepareStatement(query);
+            pst.setString(1, orderid);
+            rs = pst.executeQuery();
+            while(rs.next())
+            {
+                data2.add(new OrderDetails(rs.getString(1),rs.getString(2),rs.getInt(3)));
+            }
+            tbv_Orders.setItems(data2);
+        }
+        catch(SQLException ex)
+        {
+            
+        }
+        finally 
+        {
+            pst.close();
+        }
+    }
+    private void clearQuantityfield()
+        {
+            jtf_quantity.setText("");
+        }
     @FXML
     private void _Edit(ActionEvent event) {
     }

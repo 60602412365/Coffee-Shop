@@ -28,6 +28,14 @@ import java.util.logging.Logger;
  */
 public class OrdersDAO {
     
+    public static Orders CreateOrder(String oID,String aID,String orderTime,String date,float customerPay,float payBack){
+        String query = "Insert into Orders values (?,?,?,?,?,?)";
+   
+        return null;
+    }
+    public static Orders Payment(String order_id, float custompay, float payback){
+        return null;
+    }
     
     
       public static List<Orders> getList()
