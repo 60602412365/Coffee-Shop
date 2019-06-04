@@ -16,9 +16,11 @@ import entity.Admin;
 import gui.DoiPasswordController;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 /**
  * FXML Controller class
  *
@@ -29,8 +31,6 @@ public class AdminWorkSpaceController implements Initializable {
     @FXML
     private Button btn_quanLyNhanSu;
     @FXML
-    private Button btn_quanLyBan;
-    @FXML
     private Button btn_quanLyThucDon;
     @FXML
     private Button btn_doanhThu;
@@ -40,6 +40,9 @@ public class AdminWorkSpaceController implements Initializable {
     private Button btn_dangXuat;
 
     private Admin ad;
+    @FXML
+    private Button btn_QLhoaDon;
+
     /**
      * Initializes the controller class.
      */
@@ -52,17 +55,28 @@ public class AdminWorkSpaceController implements Initializable {
     private void btn_quanLyNhanSu(ActionEvent event) {
         ChangeScreen.loadWindow(getClass().getResource("/gui/admin/ListAccount.fxml"), "Quản lý nhân sự", null);
     }
+ 
 
-    @FXML
-    private void _quanLyBan(ActionEvent event) {
-        ChangeScreen.loadWindow(getClass().getResource("/gui/admin/ListTable.fxml"), "Quản lý bàn", null);
-    }
+
 
     @FXML
     private void _quanLyThucDon(ActionEvent event) {
         ChangeScreen.loadWindow(getClass().getResource("/gui/admin/ListProduct.fxml"), "Quản lý thực đơn", null);
     }
-
+    
+    @FXML
+    private void _QLHOADON(ActionEvent event) throws IOException {
+        /*
+        Parent home_page_parent = FXMLLoader.load(getClass().getResource("/gui/admin/ListOrder.fxml"));
+        Scene home_page_scene = new Scene(home_page_parent);
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        
+        stage.setScene(home_page_scene);
+        stage.setTitle("Quản lý thực đơn");
+        stage.show();
+        */ 
+        ChangeScreen.loadWindow(getClass().getResource("/gui/admin/ListOrder.fxml"), "Quản lý hóa đơn", null);
+    }
     @FXML
     private void _doanhThu(ActionEvent event) {
     }
@@ -103,5 +117,10 @@ public class AdminWorkSpaceController implements Initializable {
      public void setAdmin(Admin admin) {
         ad = admin;
     }
+
+
+
+    
+   
     
 }

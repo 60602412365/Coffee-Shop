@@ -31,7 +31,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="btn_quanLyBan" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#_quanLyBan" prefHeight="76.0" prefWidth="238.0" stylesheets="@AdminWorkSpaceColorPicker.css" text="Quản lý hóa đơn" textFill="#eeeaea">
+            <Button fx:id="btn_QLhoaDon" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#_QLHOADON" prefHeight="76.0" prefWidth="232.0" stylesheets="@AdminWorkSpaceColorPicker.css" text="Quản lý hóa đơn" textFill="#eeeaea">
                <graphic>
                   <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>

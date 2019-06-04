@@ -214,7 +214,7 @@ public class WorkSpaceController implements Initializable {
     {
         String orderID = "oID00000";
         try {
-            pst = conn.prepareStatement("select max(order_id from Orders");
+            pst = conn.prepareStatement("select max(order_id) from Orders");
             rs = pst.executeQuery();
             if (rs.next())
             {
@@ -250,11 +250,11 @@ public class WorkSpaceController implements Initializable {
         
         String Quantity = String.valueOf(quantity);
         
-        
         if ( Quantity.isEmpty())
         {
             AlertMaker.AlertMaker.showErrorMessage("Errors", "Please fills in quantity text field");
         }
+       
         
         try
         {
@@ -276,10 +276,7 @@ public class WorkSpaceController implements Initializable {
         {
             
         }
-        finally
-        {
-            pst.close();
-        }
+      
         
         try
         {
@@ -339,8 +336,7 @@ public class WorkSpaceController implements Initializable {
         
         try 
         {
-            String query = "Select* from OrderDetails"
-                    + "Where order_id = ?";
+            String query = "Select * from OrderDetails where order_id = '?' ";
                             
             pst = conn.prepareStatement(query);
             pst.setString(1, orderid);
@@ -361,9 +357,9 @@ public class WorkSpaceController implements Initializable {
         }
     }
     private void clearQuantityfield()
-        {
-            jtf_quantity.setText("");
-        }
+    {
+        jtf_quantity.setText("");
+    }
     @FXML
     private void _Edit(ActionEvent event) {
     }
