@@ -18,6 +18,7 @@ public class Orders {
     private java.sql.Date ordertime;
     private float price, customerpay, payback;
 
+
     public String getAccount_id() {
         return account_id;
     }
@@ -82,6 +83,12 @@ public class Orders {
         this.price = p;
         this.customerpay = cb;
         this.payback = pb;
+    }
+    public Orders(String i , Date d , String a){
+        this.order_id = i;
+        this.ordertime = d;
+        this.account_id = a;
+    
     }
     
      public Vector toVector(){

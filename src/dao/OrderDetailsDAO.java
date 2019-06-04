@@ -28,10 +28,38 @@ public class OrderDetailsDAO {
     public static OrderDetails UpdateOrderDetails(String order_id, String product_id, int quantity){
         return null;   
     }
-    
-     public static OrderDetails DeleteOrderDetails(String order_id){
-        return null;   
+    public static int insert(String order_id, String product_id, int quantity){// thêm cả order và cả các orderdetails của nó
+        String sql = "INSERT INTO OrderDetails VALUES (?, ?, ?)";                   // tạo id mới cho order cần thêm vào database
+        try(Connection cn = new DBConnection().getCon();){
+               
+            
+       
+             
+                    
+                 
+                    
+                  
+                    try(PreparedStatement st = cn.prepareStatement(sql)){
+                            st.setString(1, order_id);
+                            st.setString(2, product_id);
+                            st.setInt(3, quantity);
+                            
+                            st.executeUpdate();
+                        }
+                        
+                        return 1;
+                    }
+                
+           
+         catch (SQLException ex) {
+            ex.printStackTrace();
+            Logger.getLogger(OrderDetailsDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return 0;
     }
+
+
      public static List<OrderDetails> getList()
     {
         List<OrderDetails> ds = new ArrayList<>();

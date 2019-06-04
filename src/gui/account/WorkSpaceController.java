@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import com.jfoenix.controls.JFXButton;
+import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 import dao.OrderDetailsDAO;
 import dao.OrdersDAO;
 import entity.Account;
@@ -28,6 +29,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -46,6 +49,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.util.*;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 
 /**
  * FXML Controller class
@@ -110,19 +115,21 @@ public class WorkSpaceController implements Initializable {
     @FXML
     private Label label_ofOrderID;
     @FXML
-    private Label label_ofOrderTime;
-    @FXML
     private Label label_ofAccountID;
-    @FXML
-    private JFXTextField jtf_quantity;
     @FXML
     private JFXTextField jtf_customerPay;
     @FXML
     private JFXTextField jtf_payBack;
+    
+    LocalDate today = LocalDate.now( ZoneId.of( "Asia/Ho_Chi_Minh" ) );
    
     
     HashMap<Integer, ArrayList<String>> ordernote_list = new HashMap<>();       // danh sách note của order hiện tại              mỗi bàn tương ứng với một danh sách note
-    HashMap<Orders, ArrayList<OrderDetails>> order_list = new HashMap<>();       // danh sách order hiện tại
+    HashMap<Orders, ArrayList<OrderDetails>> order_list = new HashMap<>(); 
+    
+// danh sách order hiện tại
+    @FXML
+    private Spinner<Integer> spinner = new Spinner<Integer>();
     /**
      * Initializes the controller class.
      */
@@ -132,9 +139,20 @@ public class WorkSpaceController implements Initializable {
         conn = connection.DBConnection.getCon();
         data = FXCollections.observableArrayList();
         data2 = FXCollections.observableArrayList();
+        
+        SpinnerValueFactory<Integer> valueFactory = //
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 5, 2);
+ 
+        this.spinner.setValueFactory(valueFactory);
+         
+        
+         
         setCellProductTable();
         LoadProductFromDB();
         bindingsProductfromTableView();
+        
+        
+       
       
     }    
     private void bindingsProductfromTableView()
@@ -192,10 +210,23 @@ public class WorkSpaceController implements Initializable {
             Logger.getLogger(ListProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
         tbv_Product.setItems(data);
+        
+        
+        
+        
+        
+        
+    }
+    
+    public void LoadInfoOrder(){
+        Orders orders =  OrdersDAO.insert(label_ofAccountID.getText(), java.sql.Date.valueOf(this.today));
+        label_ofOrderID.setText(orders.getOrder_id());
+        
     }
     
     public void setAccount(Account account) {
        ac = account;
+       label_ofAccountID.setText(ac.getAccount_id());
     }
 
     public Entry<Orders, ArrayList<OrderDetails>> getOrderofTable(int tablenumber){
@@ -212,9 +243,11 @@ public class WorkSpaceController implements Initializable {
     }
     private String autoOrderID()
     {
+        
+        
         String orderID = "oID00000";
         try {
-            pst = conn.prepareStatement("select max(order_id from Orders");
+            pst = conn.prepareStatement("SELECT max(order_id) from Orders");
             rs = pst.executeQuery();
             if (rs.next())
             {
@@ -238,94 +271,35 @@ public class WorkSpaceController implements Initializable {
     private void _Add(ActionEvent event) throws SQLException {
         
         //OrdersDAO.insert(entry);
-        String query = "Insert into Orders values (?,?,?,?,?,?)";
-        String query2 = "Insert into OrderDetails values (?,?,?)";
+       
+
         
-        String orderid = autoOrderID();
-        float quantity = Float.valueOf(jtf_quantity.getText()); 
+        String orderid = label_ofOrderID.getText();
+        
         String productID = label_ofProductID.getText();
-        String price = label_ofPrice.getText();
-        String date = getRealTimeDate();
-        String accountID = ac.getAccount_id();
+        int quantity = spinner.getValue();
         
+
         String Quantity = String.valueOf(quantity);
-        
-        
-        if ( Quantity.isEmpty())
+        if (Quantity.isEmpty())
         {
-            AlertMaker.AlertMaker.showErrorMessage("Errors", "Please fills in quantity text field");
+            AlertMaker.AlertMaker.showErrorMessage("Erroes", "Please fills in quantity text field");
         }
         
-        try
-        {
-            pst = conn.prepareStatement(query);
-            pst.setString(1, orderid);
-            pst.setString(2, accountID);
-            pst.setString(3,date);
-            pst.setString(4, price);
-            pst.setFloat(5, 0);
-            pst.setFloat(6, 0);
+        int i = OrderDetailsDAO.insert(orderid, productID, quantity);
+        
+           
             
-            int i = pst.executeUpdate();
             if (i == 1)
             {
-                AlertMaker.AlertMaker.showSimpleAlert("Add", "Successfully");
-            }
-        }
-        catch(SQLException ex)
-        {
-            
-        }
-        finally
-        {
-            pst.close();
-        }
-        
-        try
-        {
-            pst = conn.prepareStatement(query2);
-            pst.setString(1, orderid);
-            pst.setString(2, productID);
-            pst.setFloat(3, quantity);
-            int i = pst.executeUpdate();
-            if (i == 1)
-            {
-                setCell();
-                LoadData(orderid);
-            }
-        }
-        catch(SQLException ex)
-        {
-            
-        }
-        /*try 
-        {
-            pst = conn.prepareStatement(query);
-            pst.setString(1, orderid);
-            pst.setString(2, date);
-            pst.setString(3, accountID);
-            pst.setString(4, date);
-            pst.setString(5, orderid);
-            pst.setString(6, date);
-            int i = pst.executeUpdate();
-            if (i == 1)
-            {
-                AlertMaker.AlertMaker.showSimpleAlert("Add", "Successful!");
                 
-                clearQuantityfield();
+                AlertMaker.AlertMaker.showSimpleAlert("Add", "Succesfully!");
+                setCell();
+                LoadData(label_ofOrderID.getText());
             }
-        }
-        catch(SQLException ex)
-        {
-            
-        }
-        */
-        
-      
-        
-        //data2.add(e)
-        
-    }
+             
+    } 
+    
     private void setCell()
     {
         tbCol_OrderID.setCellValueFactory(new PropertyValueFactory<>("order_id"));
@@ -339,8 +313,8 @@ public class WorkSpaceController implements Initializable {
         
         try 
         {
-            String query = "Select* from OrderDetails"
-                    + "Where order_id = ?";
+            String query = "SELECT * FROM OrderDetails "
+                    + "WHERE order_id = ?";
                             
             pst = conn.prepareStatement(query);
             pst.setString(1, orderid);
@@ -360,15 +334,27 @@ public class WorkSpaceController implements Initializable {
             pst.close();
         }
     }
-    private void clearQuantityfield()
-        {
-            jtf_quantity.setText("");
-        }
+    
     @FXML
     private void _Edit(ActionEvent event) {
     }
 
     @FXML
     private void _Delete(ActionEvent event) {
+    }
+
+    @FXML
+    private void _TaoHoaDon(ActionEvent event) {
+        
+        LoadInfoOrder();
+    }
+
+    @FXML
+    private void _Payment(ActionEvent event) {
+        Float totalprice = Float.valueOf(jtf_TotalPrice.toString());
+        Float customerpay = Float.valueOf(jtf_customerPay.toString());
+        Float payback = Float.valueOf(jtf_payBack.getText());
+        
+        OrdersDAO.Update(label_ofOrderID.getText(), totalprice, customerpay, payback);
     }
 }
