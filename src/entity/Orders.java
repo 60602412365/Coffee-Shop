@@ -76,7 +76,7 @@ public class Orders {
         this.price = price;
     }
     
-    public Orders(String i , Date d , String a, float p , float cb, float pb ){
+    public Orders(String i  , String a, Date d, float p , float cb, float pb ){
         this.order_id = i;
         this.ordertime = d;
         this.account_id = a;

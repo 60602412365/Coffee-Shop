@@ -247,7 +247,11 @@ public class WorkSpaceController implements Initializable {
         
         String orderID = "oID00000";
         try {
+<<<<<<< HEAD
             pst = conn.prepareStatement("SELECT max(order_id) from Orders");
+=======
+            pst = conn.prepareStatement("select max(order_id) from Orders");
+>>>>>>> 2e18e367d9aeacba3cc749d41f95017f55578eda
             rs = pst.executeQuery();
             if (rs.next())
             {
@@ -281,12 +285,42 @@ public class WorkSpaceController implements Initializable {
         
 
         String Quantity = String.valueOf(quantity);
+<<<<<<< HEAD
         if (Quantity.isEmpty())
+=======
+        
+        if ( Quantity.isEmpty())
+>>>>>>> 2e18e367d9aeacba3cc749d41f95017f55578eda
         {
             AlertMaker.AlertMaker.showErrorMessage("Erroes", "Please fills in quantity text field");
         }
+       
         
+<<<<<<< HEAD
         int i = OrderDetailsDAO.insert(orderid, productID, quantity);
+=======
+        try
+        {
+            pst = conn.prepareStatement(query);
+            pst.setString(1, orderid);
+            pst.setString(2, accountID);
+            pst.setString(3,date);
+            pst.setString(4, price);
+            pst.setFloat(5, 0);
+            pst.setFloat(6, 0);
+            
+            int i = pst.executeUpdate();
+            if (i == 1)
+            {
+                AlertMaker.AlertMaker.showSimpleAlert("Add", "Successfully");
+            }
+        }
+        catch(SQLException ex)
+        {
+            
+        }
+      
+>>>>>>> 2e18e367d9aeacba3cc749d41f95017f55578eda
         
            
             
@@ -313,8 +347,12 @@ public class WorkSpaceController implements Initializable {
         
         try 
         {
+<<<<<<< HEAD
             String query = "SELECT * FROM OrderDetails "
                     + "WHERE order_id = ?";
+=======
+            String query = "Select * from OrderDetails where order_id = '?' ";
+>>>>>>> 2e18e367d9aeacba3cc749d41f95017f55578eda
                             
             pst = conn.prepareStatement(query);
             pst.setString(1, orderid);
@@ -334,7 +372,14 @@ public class WorkSpaceController implements Initializable {
             pst.close();
         }
     }
+<<<<<<< HEAD
     
+=======
+    private void clearQuantityfield()
+    {
+        jtf_quantity.setText("");
+    }
+>>>>>>> 2e18e367d9aeacba3cc749d41f95017f55578eda
     @FXML
     private void _Edit(ActionEvent event) {
     }
