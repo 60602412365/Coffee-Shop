@@ -16,6 +16,7 @@ import com.jfoenix.controls.JFXButton;
 import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 import dao.OrderDetailsDAO;
 import dao.OrdersDAO;
+import dao.ProductDAO;
 import entity.Account;
 import entity.OrderDetails;
 import entity.Orders;
@@ -122,14 +123,17 @@ public class WorkSpaceController implements Initializable {
     private JFXTextField jtf_payBack;
     
     LocalDate today = LocalDate.now( ZoneId.of( "Asia/Ho_Chi_Minh" ) );
-   
     
-    HashMap<Integer, ArrayList<String>> ordernote_list = new HashMap<>();       // danh sách note của order hiện tại              mỗi bàn tương ứng với một danh sách note
-    HashMap<Orders, ArrayList<OrderDetails>> order_list = new HashMap<>(); 
     
 // danh sách order hiện tại
     @FXML
     private Spinner<Integer> spinner = new Spinner<Integer>();
+    @FXML
+    private Label label_ofQ;
+    @FXML
+    private Label label_ofpID;
+    @FXML
+    private Label label_ofPr;
     /**
      * Initializes the controller class.
      */
@@ -143,17 +147,11 @@ public class WorkSpaceController implements Initializable {
         SpinnerValueFactory<Integer> valueFactory = //
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 5, 2);
  
-        this.spinner.setValueFactory(valueFactory);
-         
-        
-         
+        this.spinner.setValueFactory(valueFactory);  
         setCellProductTable();
         LoadProductFromDB();
         bindingsProductfromTableView();
-        
-        
-       
-      
+        bindingOrderDetails();
     }    
     private void bindingsProductfromTableView()
     {
@@ -209,13 +207,7 @@ public class WorkSpaceController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(ListProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        tbv_Product.setItems(data);
-        
-        
-        
-        
-        
-        
+        tbv_Product.setItems(data);  
     }
     
     public void LoadInfoOrder(){
@@ -229,12 +221,7 @@ public class WorkSpaceController implements Initializable {
        label_ofAccountID.setText(ac.getAccount_id());
     }
 
-    public Entry<Orders, ArrayList<OrderDetails>> getOrderofTable(int tablenumber){
-        for(Entry<Orders, ArrayList<OrderDetails>> iter : this.order_list.entrySet()){
-        }
-        
-        return null;
-    }
+ 
     
     private void loadOrdersDetailFromDB()
     {
@@ -247,11 +234,7 @@ public class WorkSpaceController implements Initializable {
         
         String orderID = "oID00000";
         try {
-<<<<<<< HEAD
             pst = conn.prepareStatement("SELECT max(order_id) from Orders");
-=======
-            pst = conn.prepareStatement("select max(order_id) from Orders");
->>>>>>> 2e18e367d9aeacba3cc749d41f95017f55578eda
             rs = pst.executeQuery();
             if (rs.next())
             {
@@ -285,51 +268,20 @@ public class WorkSpaceController implements Initializable {
         
 
         String Quantity = String.valueOf(quantity);
-<<<<<<< HEAD
         if (Quantity.isEmpty())
-=======
-        
-        if ( Quantity.isEmpty())
->>>>>>> 2e18e367d9aeacba3cc749d41f95017f55578eda
         {
             AlertMaker.AlertMaker.showErrorMessage("Erroes", "Please fills in quantity text field");
         }
-       
         
-<<<<<<< HEAD
         int i = OrderDetailsDAO.insert(orderid, productID, quantity);
-=======
-        try
-        {
-            pst = conn.prepareStatement(query);
-            pst.setString(1, orderid);
-            pst.setString(2, accountID);
-            pst.setString(3,date);
-            pst.setString(4, price);
-            pst.setFloat(5, 0);
-            pst.setFloat(6, 0);
-            
-            int i = pst.executeUpdate();
-            if (i == 1)
-            {
-                AlertMaker.AlertMaker.showSimpleAlert("Add", "Successfully");
-            }
-        }
-        catch(SQLException ex)
-        {
-            
-        }
-      
->>>>>>> 2e18e367d9aeacba3cc749d41f95017f55578eda
         
-           
-            
             if (i == 1)
             {
                 
                 AlertMaker.AlertMaker.showSimpleAlert("Add", "Succesfully!");
                 setCell();
                 LoadData(label_ofOrderID.getText());
+                
             }
              
     } 
@@ -339,7 +291,18 @@ public class WorkSpaceController implements Initializable {
         tbCol_OrderID.setCellValueFactory(new PropertyValueFactory<>("order_id"));
         tbCol_ProductID.setCellValueFactory(new PropertyValueFactory<>("product_id"));
         tbCol_quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-                
+        tbCol_detailPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        
+    }
+    private void bindingOrderDetails()
+    {
+        tbv_Orders.setOnMouseClicked((MouseEvent e) -> 
+        {
+            OrderDetails od = tbv_Orders.getItems().get(tbv_Orders.getSelectionModel().getSelectedIndex());
+            label_ofpID.setText(od.getProduct_id());
+            label_ofQ.setText(String.valueOf(od.getQuantity()));
+            label_ofPr.setText(String.valueOf(od.getPrice()));
+        });
     }
     private void LoadData(String orderid) throws SQLException
     {
@@ -347,21 +310,23 @@ public class WorkSpaceController implements Initializable {
         
         try 
         {
-<<<<<<< HEAD
-            String query = "SELECT * FROM OrderDetails "
+            String query = "SELECT od.order_id, od.product_id, od.quan , od.quan * p.price as 'Price'"
+                    + "FROM Product p inner join OrderDetails od on p.product_id = od.product_id "
                     + "WHERE order_id = ?";
-=======
-            String query = "Select * from OrderDetails where order_id = '?' ";
->>>>>>> 2e18e367d9aeacba3cc749d41f95017f55578eda
                             
             pst = conn.prepareStatement(query);
             pst.setString(1, orderid);
             rs = pst.executeQuery();
+            
+
+            
             while(rs.next())
             {
-                data2.add(new OrderDetails(rs.getString(1),rs.getString(2),rs.getInt(3)));
+                data2.add(new OrderDetails(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getFloat(4)));
             }
             tbv_Orders.setItems(data2);
+            jtf_TotalPrice.setText(String.valueOf(TotalPrice()));
+           
         }
         catch(SQLException ex)
         {
@@ -371,21 +336,86 @@ public class WorkSpaceController implements Initializable {
         {
             pst.close();
         }
+        
+        
+        
     }
-<<<<<<< HEAD
     
-=======
-    private void clearQuantityfield()
-    {
-        jtf_quantity.setText("");
+    public Float TotalPrice(){
+       float total = 0 ;
+       OrderDetails or = new OrderDetails();
+       List <List<String>> arrList = new ArrayList();
+       for (int i = 0; i < tbv_Orders.getItems().size(); i++)
+       {
+           or = tbv_Orders.getItems().get(i);
+           total= total + or.getPrice();
+       }
+       System.out.println(total);
+       return total;
     }
->>>>>>> 2e18e367d9aeacba3cc749d41f95017f55578eda
+    
+    
     @FXML
     private void _Edit(ActionEvent event) {
+        
+            String order_id = label_ofOrderID.getText();
+            String product_id = label_ofpID.getText();
+            int quantity = Integer.parseInt(label_ofQ.getText());
+            float price = Float.valueOf(label_ofPr.getText());
+            
+            
+            String query = "Update OrderDetails "
+                    + "Set quan = ? "
+                    + "where order_id = ? and product_id = ? ";
+            
+            try
+            {
+                pst = conn.prepareStatement(query);
+                pst.setInt(1, spinner.getValue());
+                pst.setString(2, order_id);
+                pst.setString(3, product_id);
+                int i = pst.executeUpdate();
+                if (i == 1)
+                {
+                    AlertMaker.AlertMaker.showSimpleAlert("Update", "Succesfully!");
+                    LoadData(label_ofOrderID.getText());
+                    Clearlabel();
+                }
+            }
+            catch(SQLException ex)
+            {
+                
+            }
+        
     }
 
     @FXML
     private void _Delete(ActionEvent event) {
+        String order_id = label_ofOrderID.getText();
+        String product_id = label_ofpID.getText();
+        int quantity = Integer.parseInt(label_ofQ.getText());
+        float price = Float.valueOf(label_ofPr.getText());
+        
+        String query = "Delete from OrderDetails "
+                + "where order_id = ? and product_id = ? and quan = ? ";
+        try
+        {
+            pst = conn.prepareStatement(query);
+            pst.setString(1, order_id);
+            pst.setString(2, product_id);
+            pst.setInt(3, quantity);
+            int i = pst.executeUpdate();
+            if (i == 1)
+            {
+                AlertMaker.AlertMaker.showSimpleAlert("Delete", "Successfully!");
+                LoadData(label_ofOrderID.getText());
+                Clearlabel();
+            }
+        }
+        catch(SQLException ex)
+        {
+            
+        }
     }
 
     @FXML
@@ -401,5 +431,11 @@ public class WorkSpaceController implements Initializable {
         Float payback = Float.valueOf(jtf_payBack.getText());
         
         OrdersDAO.Update(label_ofOrderID.getText(), totalprice, customerpay, payback);
+    }
+
+    private void Clearlabel() {
+        label_ofpID.setText("");
+        label_ofPr.setText("");
+        label_ofQ.setText("");
     }
 }

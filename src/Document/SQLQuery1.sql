@@ -151,3 +151,18 @@ insert into OrderDetails values
 ('oID0000008','F000000031',2)
 go
 
+select o.price*od.quan as 'Thành tiền'
+from Orders o inner join OrderDetails od on o.order_id = od.order_id
+
+select od.order_id, p.price * od.quan as 'Thành tiền'
+from Product p inner join OrderDetails od on p.product_id = od.product_id
+
+select*, p.price * od.quan as 'Thành tiền'
+from Product p inner join OrderDetails od on p.product_id = od.product_id
+
+select od.order_id, od.product_id,od.quan, od.quan * p.price as 'Price'
+from Product p inner join OrderDetails od on p.product_id = od.product_id
+
+select *
+from Orders
+where ordertime >= '2019-06-01' and ordertime <= '2019-06-04'

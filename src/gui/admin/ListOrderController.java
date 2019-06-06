@@ -14,6 +14,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -75,6 +77,8 @@ public class ListOrderController implements Initializable {
     private TableColumn<?, ?> tbCol_ProductID;
     @FXML
     private TableColumn<?, ?> tbCol_Quantity;
+    @FXML
+    private TableColumn<?, ?> tbCol_DetailPrice;
 
     private Connection conn = null;
     private PreparedStatement pst = null;
@@ -83,6 +87,7 @@ public class ListOrderController implements Initializable {
     private ObservableList<OrderDetails> data2;
     @FXML
     private Button btn_xemChiTiet;
+
 
     /**
      * Initializes the controller class.
@@ -129,15 +134,21 @@ public class ListOrderController implements Initializable {
            label_ofAccountID.setText(o.getAccount_id());
            label_ofOrderTime.setText(o.getOrdertime().toString());
            label_ofPrice.setText(String.valueOf(o.getPrice()));
-           label_ofCustomerPay.setText(String.valueOf(o.getPayback()));
+           label_ofCustomerPay.setText(String.valueOf(o.getCustomerpay()));
            label_ofPayBack.setText(String.valueOf(o.getPayback()));
+          
            
-           
-           // bindings to another table
-           LoadDBOrderDetails(o.getOrder_id());
+           try {
+               // bindings to another table
+                LoadDBOrderDetails(label_ofOrderID.getText());
+           } catch (SQLException ex)
+           {
+               Logger.getLogger(ListOrderController.class.getName()).log(Level.SEVERE, null, ex);
+           }
            BindingOrderDetails();
            }
        );
+       setCell();
     }
     }
 
@@ -150,30 +161,45 @@ public class ListOrderController implements Initializable {
         tbCol_PayBack.setCellValueFactory(new PropertyValueFactory<>("payback"));
     }
 
-    private void LoadDBOrderDetails(String orderid) {
+    private void LoadDBOrderDetails(String orderid) throws SQLException {
+        
         data2.clear();
         
 
-        try
+        try 
         {
-            String query = "Select* from OrderDetails "
-                + "Where order_id = ? ";
+            
+            String query = "SELECT od.order_id, od.product_id, od.quan, p.price * od.quan as 'Price' "
+                    + "FROM OrderDetails od inner join Product p on od.product_id = p.product_id"
+                    + "WHERE od.order_id = '?'";
+            System.out.println(orderid);
             pst = conn.prepareStatement(query);
             pst.setString(1, orderid);
+            System.out.println(orderid);
             rs = pst.executeQuery();
+            System.out.println(orderid);
             while(rs.next())
             {
-                data2.add(new OrderDetails(rs.getString(1),rs.getString(2),rs.getInt(3)));
+                data2.add(new OrderDetails(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getFloat(4)));
             }
+
+            
+            tbv_OrderDetails.setItems(data2);
+            
+           
         }
         catch(SQLException ex)
         {
-            ex.printStackTrace();
+            
         }
-        tbv_OrderDetails.setItems(data2);
+        finally 
+        {
+            pst.close();
+        }
     }
 
     private void BindingOrderDetails() {
+        
         tbv_OrderDetails.setOnMouseClicked((MouseEvent e)->
         {
             OrderDetails od = tbv_OrderDetails.getItems().get(tbv_OrderDetails.getSelectionModel().getSelectedIndex());
@@ -183,13 +209,22 @@ public class ListOrderController implements Initializable {
         }
         );
     }
-
+     private void setCell()
+    {
+        tbCol_OrderDetailsID.setCellValueFactory(new PropertyValueFactory<>("order_id"));
+        tbCol_ProductID.setCellValueFactory(new PropertyValueFactory<>("product_id"));
+        tbCol_Quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        tbCol_DetailPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+    }
     
     @FXML
-    private void _XemChiTiet(ActionEvent event) {
+    private void _XemChiTiet(ActionEvent event) throws SQLException {
         
+        LoadDBOrderDetails(label_ofOrderID.getText());
+        
+      
+            
         /*
-        data2.clear();
         tbv_Orders.setOnMouseClicked((MouseEvent e)->
         {
             Orders o = tbv_Orders.getItems().get(tbv_Orders.getSelectionModel().getSelectedIndex());

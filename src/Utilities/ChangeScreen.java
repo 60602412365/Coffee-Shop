@@ -22,11 +22,7 @@ import main.MainController;
  * @author USER
  */
 public class ChangeScreen {
-    public static final String ICON_IMAGE_LOC = "/Images/java_coffee_cup_logo_48px";
-    
-     public static void setStageIcon(Stage stage) {
-        stage.getIcons().add(new Image(ICON_IMAGE_LOC));
-    }
+
 
     public static Object loadWindow(URL loc, String title, Stage parentStage) {
         Object controller = null;
@@ -43,7 +39,6 @@ public class ChangeScreen {
             stage.setTitle(title);
             stage.setScene(new Scene(parent));
             stage.show();
-            setStageIcon(stage);
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }

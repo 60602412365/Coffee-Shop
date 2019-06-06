@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -9,45 +12,57 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="365.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="gui.admin.EndDayController">
+<AnchorPane id="AnchorPane" prefHeight="404.0" prefWidth="735.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.admin.EndDayController">
    <children>
       <AnchorPane prefHeight="400.0" prefWidth="400.0">
          <children>
-            <TableView prefHeight="404.0" prefWidth="402.0">
+            <TableView fx:id="tbv_Orders" prefHeight="404.0" prefWidth="535.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="Order ID" />
-                <TableColumn prefWidth="75.0" text="Price" />
+                <TableColumn fx:id="tbCol_OrderID" prefWidth="75.0" text="Order ID" />
+                  <TableColumn fx:id="tbCol_AccountID" prefWidth="75.0" text="Account ID" />
+                  <TableColumn fx:id="tbCol_Date" prefWidth="75.0" text="Date" />
+                <TableColumn fx:id="tbCol_Price" prefWidth="75.0" text="Total Price" />
+                  <TableColumn fx:id="tbCol_CustomerPay" prefWidth="98.0" text="Customer Pay" />
+                  <TableColumn fx:id="tbCol_PayBack" prefWidth="75.0" text="Pay Back" />
               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="402.0" layoutY="2.0" prefHeight="98.0" prefWidth="200.0">
+      <VBox layoutX="438.0" layoutY="246.0" prefHeight="138.0" prefWidth="100.0">
          <children>
-            <Text layoutX="47.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Doanh thu ngày" />
-         </children>
-      </AnchorPane>
-      <VBox layoutX="444.0" layoutY="130.0" prefHeight="200.0" prefWidth="100.0">
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Doanh thu" />
             <HBox prefHeight="61.0" prefWidth="100.0">
                <VBox.margin>
                   <Insets top="60.0" />
                </VBox.margin>
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="VND">
-                     <HBox.margin>
-                        <Insets top="10.0" />
-                     </HBox.margin>
-                  </Text>
-               </children>
             </HBox>
          </children>
       </VBox>
+      <AnchorPane layoutX="538.0" prefHeight="187.0" prefWidth="200.0">
+         <children>
+            <Text layoutX="23.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select First Day" />
+            <DatePicker fx:id="firstDateSelector" layoutX="13.0" layoutY="44.0" promptText="mm//dd//yyyy" />
+            <DatePicker fx:id="lastDateSelector" layoutX="13.0" layoutY="114.0" promptText="mm//dd//yyyy" />
+            <Text layoutX="23.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Last Day" />
+            <Button fx:id="btn_Load" layoutX="74.0" layoutY="161.0" mnemonicParsing="false" onAction="#_Load" text="Load" />
+         </children>
+      </AnchorPane>
+      <Label layoutX="604.0" layoutY="202.0" text="Tổng tiền">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="label_ofRevenue" layoutX="559.0" layoutY="250.0" text="0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="673.0" layoutY="250.0" text="VND">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

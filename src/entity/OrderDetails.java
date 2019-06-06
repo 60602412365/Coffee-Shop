@@ -6,7 +6,6 @@
 package entity;
 
 import java.util.Vector;
-import javafx.beans.property.SimpleStringProperty;
 
 /**
  *
@@ -15,11 +14,20 @@ import javafx.beans.property.SimpleStringProperty;
 public class OrderDetails {
     private String order_id, product_id ;
     private int quantity;
+    private float price;
 
     public OrderDetails() {
        
     }
     
+    public float getPrice()
+    {
+        return price;
+    }
+    public void setPrice(float price)
+    {
+        this.price = price;
+    }
 
     public String getOrder_id() {
         return order_id;
@@ -45,10 +53,11 @@ public class OrderDetails {
         this.quantity = quantity;
     }
     
-    public OrderDetails( String o, String p, int q){
+    public OrderDetails( String o, String p, int q, float price){
         this.order_id = o;
         this.product_id = p;
         this.quantity = q;
+        this.price = price;
     }
     
     public Vector toVector(){
@@ -56,6 +65,7 @@ public class OrderDetails {
         v.add(this.order_id);
         v.add(this.product_id);
         v.add(this.quantity);
+        v.add(this.price);
         
         return v;
     }

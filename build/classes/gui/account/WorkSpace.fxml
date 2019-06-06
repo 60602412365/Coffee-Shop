@@ -38,13 +38,16 @@
       </VBox>
       <AnchorPane layoutX="819.0" layoutY="180.0" prefHeight="400.0" prefWidth="300.0">
          <children>
-            <TableView fx:id="tbv_Orders" layoutX="7.0" layoutY="7.0" prefHeight="400.0" prefWidth="300.0">
+            <TableView fx:id="tbv_Orders" layoutX="7.0" layoutY="7.0" prefHeight="407.0" prefWidth="331.0">
               <columns>
                 <TableColumn fx:id="tbCol_OrderID" prefWidth="75.0" text="Order ID" />
                 <TableColumn fx:id="tbCol_ProductID" prefWidth="75.0" text="Product ID" />
                   <TableColumn fx:id="tbCol_quantity" prefWidth="75.0" text="Quantity" />
                   <TableColumn fx:id="tbCol_detailPrice" prefWidth="75.0" text="Price" />
               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
          </children></AnchorPane>
       <VBox layoutX="646.0" layoutY="272.0" prefHeight="81.0" prefWidth="100.0">
@@ -79,28 +82,30 @@
             <Label fx:id="label_ofPrice" layoutX="127.0" layoutY="133.0" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="823.0" prefHeight="143.0" prefWidth="300.0">
+      <AnchorPane layoutX="823.0" prefHeight="149.0" prefWidth="344.0">
          <children>
             <Label layoutX="24.0" layoutY="22.0" prefHeight="17.0" prefWidth="90.0" text="Order Details" />
             <Label layoutX="24.0" layoutY="60.0" text="Order ID:" />
-            <VBox layoutX="173.0" layoutY="37.0" prefHeight="54.0" prefWidth="100.0">
-               <children>
-                  <Label text="Total Price" />
-                  <JFXTextField fx:id="jtf_TotalPrice" />
-               </children>
-            </VBox>
             <Label fx:id="label_ofOrderID" layoutX="100.0" layoutY="59.0" />
             <Label layoutX="24.0" layoutY="91.0" text="Account ID" />
             <Label fx:id="label_ofAccountID" layoutX="100.0" layoutY="91.0" prefHeight="17.0" prefWidth="0.0" />
+            <Label layoutX="197.0" layoutY="33.0" text="Product ID:" />
+            <Label layoutX="197.0" layoutY="100.0" text="Price:" />
+            <Label fx:id="label_ofQ" layoutX="263.0" layoutY="66.0" />
+            <Label fx:id="label_ofpID" layoutX="263.0" layoutY="33.0" />
+            <Label layoutX="197.0" layoutY="66.0" text="Quantity:" />
+            <Label fx:id="label_ofPr" layoutX="263.0" layoutY="100.0" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="586.0" layoutY="364.0" prefHeight="200.0" prefWidth="231.0">
          <children>
-            <Label layoutX="5.0" layoutY="32.0" text="Customer Pay" />
-            <Label layoutX="14.0" layoutY="70.0" text="Pay Back" />
-            <JFXTextField fx:id="jtf_customerPay" layoutX="82.0" layoutY="28.0" />
-            <JFXTextField fx:id="jtf_payBack" layoutX="79.0" layoutY="66.0" />
+            <Label layoutY="73.0" text="Customer Pay" />
+            <Label layoutX="9.0" layoutY="111.0" text="Pay Back" />
+            <JFXTextField fx:id="jtf_customerPay" layoutX="77.0" layoutY="69.0" />
+            <JFXTextField fx:id="jtf_payBack" layoutX="74.0" layoutY="107.0" />
             <Button layoutX="63.0" layoutY="164.0" mnemonicParsing="false" onAction="#_Payment" text="Payment" />
+            <Label layoutX="14.0" layoutY="45.0" text="Total Price" />
+            <JFXTextField fx:id="jtf_TotalPrice" layoutX="77.0" layoutY="33.0" />
          </children>
       </AnchorPane>
       <Button layoutX="645.0" layoutY="73.0" mnemonicParsing="false" onAction="#_TaoHoaDon" text="Make Order" />

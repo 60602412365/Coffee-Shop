@@ -79,6 +79,7 @@ public class AdminWorkSpaceController implements Initializable {
     }
     @FXML
     private void _doanhThu(ActionEvent event) {
+        ChangeScreen.loadWindow(getClass().getResource("/gui/admin/EndDay.fxml"), "Doanh thu", null);
     }
 
     @FXML

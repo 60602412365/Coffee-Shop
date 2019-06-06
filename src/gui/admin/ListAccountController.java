@@ -202,7 +202,8 @@ public class ListAccountController implements Initializable {
 
     @FXML
     private void _edit(ActionEvent event) {
-        String query = "Update Account set em_id = ?, username = ?, pass = ?, name = ? ";
+        String query = "Update Account "
+                + "set em_id = ?, username = ?, pass = ?, name = ?, birth = ?, addr = ?, email = ?, phone = ? ";
         try
         {
             String ID = jtf_ID.getText();
