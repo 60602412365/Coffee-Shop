@@ -11,7 +11,7 @@ import javafx.beans.property.SimpleStringProperty;
  *
  * @author PC
  */
-public class Product {
+public class Product extends Object {
     private String product_id, name, category_id;
     float price;
     

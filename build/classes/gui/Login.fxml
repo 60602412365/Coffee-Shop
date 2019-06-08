@@ -16,7 +16,7 @@
             <Font name="SansSerif Regular" size="20.0" />
          </font>
       </Label>
-      <JFXPasswordField fx:id="jpf_passWord" alignment="CENTER" layoutY="141.0" prefHeight="25.0" prefWidth="300.0" promptText="password" />
+      <JFXPasswordField fx:id="jpf_passWord" alignment="CENTER" layoutY="141.0" onKeyPressed="#_enterLogin" prefHeight="25.0" prefWidth="300.0" promptText="password" />
       <HBox layoutX="-2.0" layoutY="193.0" prefHeight="46.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="193.0">
          <children>
             <JFXButton fx:id="btn_Login" onAction="#_login" prefHeight="48.0" prefWidth="150.0" stylesheets="@LoginColorPicker.css" text="Login" textFill="WHITE" />

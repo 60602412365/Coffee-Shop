@@ -170,14 +170,12 @@ public class ListOrderController implements Initializable {
         {
             
             String query = "SELECT od.order_id, od.product_id, od.quan, p.price * od.quan as 'Price' "
-                    + "FROM OrderDetails od inner join Product p on od.product_id = p.product_id"
-                    + "WHERE od.order_id = '?'";
-            System.out.println(orderid);
+                    + "FROM OrderDetails od inner join Product p on od.product_id = p.product_id "
+                    + "WHERE od.order_id = ? ";
             pst = conn.prepareStatement(query);
             pst.setString(1, orderid);
-            System.out.println(orderid);
             rs = pst.executeQuery();
-            System.out.println(orderid);
+
             while(rs.next())
             {
                 data2.add(new OrderDetails(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getFloat(4)));

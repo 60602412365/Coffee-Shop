@@ -11,7 +11,7 @@ import javafx.beans.property.SimpleStringProperty;
  *
  * @author PC
  */
-public class Category {
+public class Category extends Object {
     private String category_id, name;
 
     public String getCategory_id() {

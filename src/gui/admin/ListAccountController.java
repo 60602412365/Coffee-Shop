@@ -6,6 +6,7 @@
 package gui.admin;
 
 import com.jfoenix.controls.JFXTextField;
+import dao.AccountDAO;
 import entity.Account;
 import java.net.URL;
 import java.sql.Connection;
@@ -24,6 +25,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -52,7 +54,6 @@ public class ListAccountController implements Initializable {
     private Button btn_edit;
     @FXML
     private Button btn_Delete;
-    @FXML
     private JFXTextField jtf_ID;
     @FXML
     private JFXTextField jtf_userName;
@@ -82,6 +83,15 @@ public class ListAccountController implements Initializable {
     private JFXTextField jtf_email;
     @FXML
     private JFXTextField jtf_phone;
+    @FXML
+    private Label lb_ID;
+    @FXML
+    private Button btn_search;
+    @FXML
+    private JFXTextField jtf_search;
+    
+    
+   
     /**
      * Initializes the controller class.
      */
@@ -130,7 +140,7 @@ public class ListAccountController implements Initializable {
     {
        tbv_Accounts.setOnMouseClicked((MouseEvent event) -> {
            Account a = tbv_Accounts.getItems().get(tbv_Accounts.getSelectionModel().getSelectedIndex());
-           jtf_ID.setText(a.getAccount_id());
+           lb_ID.setText(a.getAccount_id());
            jtf_userName.setText(a.getUsername());
            jtf_passWord.setText(a.getPassword());
            jtf_name.setText(a.getName());
@@ -142,7 +152,7 @@ public class ListAccountController implements Initializable {
     }
     private void ClearTextFields()
     {
-        jtf_ID.clear();
+       
         jtf_userName.clear();
         jtf_passWord.clear();
         jtf_name.clear();
@@ -156,29 +166,12 @@ public class ListAccountController implements Initializable {
     
     @FXML
     private void _Add(ActionEvent event) throws SQLException {
-        String query = "Insert into Account values (?,?,?,?)";
-        String ID = jtf_ID.getText();
-        String userName = jtf_userName.getText();
-        String passWord = jtf_passWord.getText();
-        String name =jtf_name.getText();
-        String birthday = jtf_birthday.getText();
-        String address = jtf_address.getText();
-        String email = jtf_email.getText();
-        String phone = jtf_phone.getText();
-        try
-        {
-            pst = conn.prepareStatement(query);
-            pst.setString(1, ID);
-            pst.setString(2,userName);
-            pst.setString(3,passWord);
-            pst.setString(4,name);
-            pst.setString(5, birthday);
-            pst.setString(6,address);
-            pst.setString(7,email);
-            pst.setString(8,phone);
-            
-            int i = pst.executeUpdate();
-            if (i == 1)
+        
+        
+        ClearTextFields();
+        int i =   AccountDAO.insert();
+        
+        if (i == 1)
             {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Cập nhật thông tin");
@@ -190,27 +183,28 @@ public class ListAccountController implements Initializable {
                 LoadDataFromDB();
                 ClearTextFields();
             }
-        }
-        catch(SQLException ex)
-        {
-        }
-        finally 
-        {
-            pst.close();
-        }
     }
+  
+    
 
     @FXML
     private void _edit(ActionEvent event) {
+        
+        if(lb_ID.getText().isEmpty()){
+             AlertMaker.AlertMaker.showErrorMessage("Warning", "You must pick account");
+        }
+        else
+        {
         String query = "Update Account "
-                + "set em_id = ?, username = ?, pass = ?, name = ?, birth = ?, addr = ?, email = ?, phone = ? ";
+                + "set username = ?, pass = ?, name = ?, birth = ?, addr = ?, email = ?, phone = ? "
+                + "where ac_id= ?";
         try
         {
-            String ID = jtf_ID.getText();
+            String ID = lb_ID.getText();
             String userName = jtf_userName.getText();
             String passWord = jtf_passWord.getText();
             String name = jtf_name.getText();
-            String birthday = jtf_birthday.getText();
+            Date birthday = Date.valueOf(jtf_birthday.getText());
             String address = jtf_address.getText();
             String email = jtf_email.getText();
             String phone = jtf_phone.getText();
@@ -221,14 +215,15 @@ public class ListAccountController implements Initializable {
             }
             pst = conn.prepareStatement(query);
             
-            pst.setString(1, ID);
-            pst.setString(2, userName);
-            pst.setString(3, passWord);
-            pst.setString(4, name);
-            pst.setString(5, birthday);
-            pst.setString(6,address);
-            pst.setString(7,email);
-            pst.setString(8,phone);
+           
+            pst.setString(1, userName);
+            pst.setString(2, passWord);
+            pst.setString(3, name);
+            pst.setDate(4, birthday);
+            pst.setString(5,address);
+            pst.setString(6,email);
+            pst.setString(7,phone);
+            pst.setString(8, ID);
             
             int i = pst.executeUpdate();
             if (i == 1)
@@ -243,19 +238,24 @@ public class ListAccountController implements Initializable {
         {
             
         }
+        }
     }
 
     @FXML
     private void _Delete(ActionEvent event) {
-        String query = "Delete from Account where em_id = ?";
+        if(lb_ID.getText().isEmpty()){
+             AlertMaker.AlertMaker.showErrorMessage("Warning", "You must pick account");
+        }
+        else{
+        String query = "Delete from Account where ac_id = ?";
         try
         {
             pst = conn.prepareStatement(query);
-            pst.setString(1,jtf_ID.getText());
+            pst.setString(1,lb_ID.getText());
             int i = pst.executeUpdate();
             if (i == 1)
             {
-                AlertMaker.AlertMaker.showSimpleAlert("Xóa thông tin Account", "Thành công");
+                AlertMaker.AlertMaker.showSimpleAlert("Delete Account", "Successfully!");
                 
                 LoadDataFromDB();
                 ClearTextFields();
@@ -266,6 +266,40 @@ public class ListAccountController implements Initializable {
         {
             
         }
+        }
     }
+
+    @FXML
+    private void _Search(ActionEvent event) {
+        String search = jtf_search.getText();
+        if (search.isEmpty())
+        {
+            AlertMaker.AlertMaker.showErrorMessage("Error", "Please enter search field");
+            LoadDataFromDB();
+        }
+        else 
+        {
+            data.clear();
+            String query = "Select* "
+                     + "From Account a "
+                     + "Where a.name like N'%' + ? +'%'";
+            try {
+                pst = conn.prepareStatement(query);
+                
+                pst.setString(1, search);
+                rs = pst.executeQuery();
+            
+            while (rs.next())
+            {
+               data.add(new Account(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDate(5), rs.getString(6), rs.getString(7), rs.getString(8)));
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ListProductController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tbv_Accounts.setItems(data);
+        }
+    }
+
     
 }

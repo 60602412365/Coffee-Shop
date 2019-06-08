@@ -84,6 +84,41 @@ public class ProductDAO {
         
         return 0;
     }
+     
+    public static int insert()
+    {
+        Product new_product = new Product();
+        String sql = "SELECT COUNT(product_id) FROM Product";                        // tạo id mới cho product cần thêm vào database
+        try(Connection cn = new DBConnection().getCon();
+                PreparedStatement st = cn.prepareStatement(sql);
+                ResultSet rs = st.executeQuery();){
+            
+            if(rs.next()){
+                int current_number_oftbFood = rs.getInt(1);
+                
+                sql = "INSERT Product VALUES (?, '', 0, '')";                    // thêm product mới vào database
+                int result = 0;
+                do{
+                    String newid = createid("Pr", String.valueOf(++current_number_oftbFood), 10);
+                    new_product.setProduct_id(newid);
+
+
+                    try(PreparedStatement st2 = cn.prepareStatement(sql);){
+
+                        st2.setString(1, new_product.getProduct_id());
+
+                        result = st2.executeUpdate();
+                    }
+                }while(result == 0);
+                return result;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return 0;
+    }
      public static int update(Product old_product, String newname, float newprice, int category)
     {
         String sql = "UPDATE Product SET name = ?, price = ?, category = ? WHERE product_id = ?";
@@ -123,6 +158,22 @@ public class ProductDAO {
         
         return 0;
     }
+       
+       
+       public static void Search(int category){
+            String sql = "Select Product WHERE category_id = ?";
+            try(Connection cn = new DBConnection().getCon();
+                PreparedStatement pst = cn.prepareStatement(sql);){
+            
+            pst.setInt(1, category);
+            
+            pst.executeUpdate();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       }
 // WARNING: những DAO có dùng hàm createid thì các record đã tạo rồi sẽ không xoá. Tức là ko nên tạo method delete() để xoá record trong table
     private static String createid(String startid, String number_want_toset, int idsize) {
         String str_result = "";

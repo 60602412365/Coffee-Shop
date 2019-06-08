@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
@@ -16,20 +17,20 @@
    <children>
       <VBox prefHeight="600.0" prefWidth="159.0">
          <children>
-            <Button fx:id="btn_Menu" mnemonicParsing="false" onAction="#_Menu" prefHeight="300.0" prefWidth="159.0" stylesheets="@WorkspaceColorPicker.css" text="Menu" textFill="WHITE">
-               <graphic>
-                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../Images/top_menu_24px.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
             <Button fx:id="btn_Settings" mnemonicParsing="false" onAction="#_Settings" prefHeight="300.0" prefWidth="159.0" stylesheets="@WorkspaceColorPicker.css" text="Settings">
                <graphic>
                   <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../Images/settings_32px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btn_Exit" mnemonicParsing="false" onAction="#_Exit" prefHeight="300.0" prefWidth="159.0" stylesheets="@WorkspaceColorPicker.css" text="Exit" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Images/top_menu_24px.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -71,15 +72,17 @@
                </columnResizePolicy>
             </TableView>
          </children></AnchorPane>
-      <AnchorPane layoutX="210.0" prefHeight="171.0" prefWidth="353.0">
+      <AnchorPane layoutX="210.0" prefHeight="179.0" prefWidth="353.0">
          <children>
-            <Label layoutX="37.0" layoutY="77.0" text="Product ID:" />
-            <Label layoutX="37.0" layoutY="104.0" text="Name: " />
-            <Label layoutX="37.0" layoutY="133.0" text="Price: " />
-            <Label layoutX="37.0" layoutY="29.0" text="Product" />
-            <Label fx:id="label_ofProductID" layoutX="127.0" layoutY="77.0" />
-            <Label fx:id="label_ofName" layoutX="127.0" layoutY="104.0" />
-            <Label fx:id="label_ofPrice" layoutX="127.0" layoutY="133.0" />
+            <Label layoutX="27.0" layoutY="48.0" text="Product ID:" />
+            <Label layoutX="27.0" layoutY="77.0" text="Name: " />
+            <Label layoutX="27.0" layoutY="104.0" text="Price: " />
+            <Label layoutX="117.0" layoutY="14.0" text="Product" />
+            <Label fx:id="label_ofProductID" layoutX="104.0" layoutY="48.0" />
+            <Label fx:id="label_ofName" layoutX="99.0" layoutY="77.0" />
+            <Label fx:id="label_ofPrice" layoutX="99.0" layoutY="104.0" />
+            <ComboBox fx:id="cbb_Category" layoutX="19.0" layoutY="133.0" prefWidth="150.0" />
+            <JFXButton fx:id="jBtn_Search" layoutX="215.0" layoutY="132.0" onAction="#_Search" prefHeight="28.0" prefWidth="133.0" stylesheets="@WorkspaceColorPicker.css" text="Search" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="823.0" prefHeight="149.0" prefWidth="344.0">
@@ -88,27 +91,27 @@
             <Label layoutX="24.0" layoutY="60.0" text="Order ID:" />
             <Label fx:id="label_ofOrderID" layoutX="100.0" layoutY="59.0" />
             <Label layoutX="24.0" layoutY="91.0" text="Account ID" />
-            <Label fx:id="label_ofAccountID" layoutX="100.0" layoutY="91.0" prefHeight="17.0" prefWidth="0.0" />
             <Label layoutX="197.0" layoutY="33.0" text="Product ID:" />
             <Label layoutX="197.0" layoutY="100.0" text="Price:" />
             <Label fx:id="label_ofQ" layoutX="263.0" layoutY="66.0" />
             <Label fx:id="label_ofpID" layoutX="263.0" layoutY="33.0" />
             <Label layoutX="197.0" layoutY="66.0" text="Quantity:" />
             <Label fx:id="label_ofPr" layoutX="263.0" layoutY="100.0" />
+            <Label fx:id="label_ofAccountID" layoutX="92.0" layoutY="91.0" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="586.0" layoutY="364.0" prefHeight="200.0" prefWidth="231.0">
          <children>
             <Label layoutY="73.0" text="Customer Pay" />
             <Label layoutX="9.0" layoutY="111.0" text="Pay Back" />
-            <JFXTextField fx:id="jtf_customerPay" layoutX="77.0" layoutY="69.0" />
-            <JFXTextField fx:id="jtf_payBack" layoutX="74.0" layoutY="107.0" />
+            <JFXTextField fx:id="jtf_customerPay" layoutX="77.0" layoutY="69.0" onKeyPressed="#_PayBack" />
             <Button layoutX="63.0" layoutY="164.0" mnemonicParsing="false" onAction="#_Payment" text="Payment" />
             <Label layoutX="14.0" layoutY="45.0" text="Total Price" />
-            <JFXTextField fx:id="jtf_TotalPrice" layoutX="77.0" layoutY="33.0" />
+            <Label fx:id="lb_payBack" layoutX="74.0" layoutY="111.0" onKeyPressed="#_PayBack" prefHeight="17.0" prefWidth="133.0" text="0" />
+            <Label fx:id="lb_TotalPrice" layoutX="78.0" layoutY="45.0" onKeyPressed="#_PayBack" prefHeight="17.0" prefWidth="133.0" text="0" />
          </children>
       </AnchorPane>
-      <Button layoutX="645.0" layoutY="73.0" mnemonicParsing="false" onAction="#_TaoHoaDon" text="Make Order" />
+      <Button layoutX="683.0" layoutY="77.0" mnemonicParsing="false" onAction="#_TaoHoaDon" text="Make Order" />
       <Spinner fx:id="spinner" layoutX="621.0" layoutY="234.0" />
       <Label layoutX="622.0" layoutY="204.0" text="Quantity" />
    </children>

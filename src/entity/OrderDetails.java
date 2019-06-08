@@ -11,7 +11,7 @@ import java.util.Vector;
  *
  * @author PC
  */
-public class OrderDetails {
+public class OrderDetails extends Object {
     private String order_id, product_id ;
     private int quantity;
     private float price;

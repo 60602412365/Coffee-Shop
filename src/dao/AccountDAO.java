@@ -178,7 +178,7 @@ public class AccountDAO {
             if(rs.next()){
                 int current_number_oftbEmployee = rs.getInt(1);
                 
-                sql = "INSERT Account VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                sql = "INSERT Account VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
                 int result = 0;
                 do{
                     String newid = createid("AC", String.valueOf(++current_number_oftbEmployee), 10);
@@ -196,6 +196,41 @@ public class AccountDAO {
                         st2.setString(6, new_emp.getAddress());
                         st2.setString(7, new_emp.getEmail());
                         st2.setString(8, new_emp.getPhone());
+
+                        result = st2.executeUpdate();
+                    }
+                } while(result == 0);
+                return result;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return 0;
+    }
+     public static int insert()
+    {
+        Account new_ac = new Account();
+        String sql = "SELECT COUNT(ac_id) FROM Account";                        // tạo id mới cho employee cần thêm vào database
+        try(Connection cn = new DBConnection().getCon();
+                PreparedStatement st = cn.prepareStatement(sql);
+                ResultSet rs = st.executeQuery();){
+            
+            if(rs.next()){
+                int current_number_oftbEmployee = rs.getInt(1);
+                
+                sql = "INSERT Account VALUES (?, '', '', '', '', '', '', '')";
+                int result = 0;
+                do{
+                    String newid = createid("AC", String.valueOf(++current_number_oftbEmployee), 10);
+                    new_ac.setAccount_id(newid);
+
+
+
+                    try(PreparedStatement st2 = cn.prepareStatement(sql);){
+
+                        st2.setString(1, new_ac.getAccount_id());
 
                         result = st2.executeUpdate();
                     }

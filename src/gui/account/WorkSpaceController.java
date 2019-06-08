@@ -5,6 +5,7 @@
  */
 package gui.account;
 
+import AlertMaker.AlertMaker;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -50,8 +51,18 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.util.*;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  * FXML Controller class
@@ -60,8 +71,6 @@ import javafx.scene.control.SpinnerValueFactory;
  */
 public class WorkSpaceController implements Initializable {
 
-    @FXML
-    private Button btn_Menu;
     @FXML
     private Button btn_Settings;
     
@@ -112,17 +121,15 @@ public class WorkSpaceController implements Initializable {
     @FXML
     private Label label_ofPrice;
     @FXML
-    private JFXTextField jtf_TotalPrice;
-    @FXML
     private Label label_ofOrderID;
     @FXML
     private Label label_ofAccountID;
     @FXML
     private JFXTextField jtf_customerPay;
-    @FXML
-    private JFXTextField jtf_payBack;
     
     LocalDate today = LocalDate.now( ZoneId.of( "Asia/Ho_Chi_Minh" ) );
+    
+     ObservableList<String> list = FXCollections.observableArrayList("Nước ngọt", "Cà phê", "Trà sửa", "Sinh tố", "Những thứ khác", "Danh sach");
     
     
 // danh sách order hiện tại
@@ -134,6 +141,16 @@ public class WorkSpaceController implements Initializable {
     private Label label_ofpID;
     @FXML
     private Label label_ofPr;
+    @FXML
+    private Button btn_Exit;
+    @FXML
+    private ComboBox<String> cbb_Category;
+    @FXML
+    private JFXButton jBtn_Search;
+    @FXML
+    private Label lb_payBack;
+    @FXML
+    private Label lb_TotalPrice;
     /**
      * Initializes the controller class.
      */
@@ -143,9 +160,10 @@ public class WorkSpaceController implements Initializable {
         conn = connection.DBConnection.getCon();
         data = FXCollections.observableArrayList();
         data2 = FXCollections.observableArrayList();
+        cbb_Category.setItems(list);
         
         SpinnerValueFactory<Integer> valueFactory = //
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 5, 2);
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 5, 1);
  
         this.spinner.setValueFactory(valueFactory);  
         setCellProductTable();
@@ -171,11 +189,6 @@ public class WorkSpaceController implements Initializable {
     }
     
 
-    @FXML
-    private void _Menu(ActionEvent event) throws IOException {
-        
-        
-    }
 
     @FXML
     private void _Settings(ActionEvent event) throws IOException {
@@ -219,6 +232,7 @@ public class WorkSpaceController implements Initializable {
     public void setAccount(Account account) {
        ac = account;
        label_ofAccountID.setText(ac.getAccount_id());
+       
     }
 
  
@@ -257,20 +271,22 @@ public class WorkSpaceController implements Initializable {
     @FXML
     private void _Add(ActionEvent event) throws SQLException {
         
-        //OrdersDAO.insert(entry);
-       
-
         
         String orderid = label_ofOrderID.getText();
-        
         String productID = label_ofProductID.getText();
         int quantity = spinner.getValue();
+        
+        //kiem tra 
+        if(orderid.isEmpty()){
+             AlertMaker.showErrorMessage("Error", "Please make orders first");
+        }
+        else{
         
 
         String Quantity = String.valueOf(quantity);
         if (Quantity.isEmpty())
         {
-            AlertMaker.AlertMaker.showErrorMessage("Erroes", "Please fills in quantity text field");
+            AlertMaker.showErrorMessage("Error", "Please fills in quantity text field");
         }
         
         int i = OrderDetailsDAO.insert(orderid, productID, quantity);
@@ -278,12 +294,12 @@ public class WorkSpaceController implements Initializable {
             if (i == 1)
             {
                 
-                AlertMaker.AlertMaker.showSimpleAlert("Add", "Succesfully!");
+                AlertMaker.showSimpleAlert("Add", "Succesfully!");
                 setCell();
                 LoadData(label_ofOrderID.getText());
                 
             }
-             
+        }
     } 
     
     private void setCell()
@@ -325,7 +341,7 @@ public class WorkSpaceController implements Initializable {
                 data2.add(new OrderDetails(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getFloat(4)));
             }
             tbv_Orders.setItems(data2);
-            jtf_TotalPrice.setText(String.valueOf(TotalPrice()));
+            lb_TotalPrice.setText(String.valueOf(TotalPrice()));
            
         }
         catch(SQLException ex)
@@ -350,7 +366,6 @@ public class WorkSpaceController implements Initializable {
            or = tbv_Orders.getItems().get(i);
            total= total + or.getPrice();
        }
-       System.out.println(total);
        return total;
     }
     
@@ -359,10 +374,17 @@ public class WorkSpaceController implements Initializable {
     private void _Edit(ActionEvent event) {
         
             String order_id = label_ofOrderID.getText();
+
+            
+        //kiem tra 
+        if(order_id.isEmpty()){
+             AlertMaker.showErrorMessage("Error", "Please make orders first");
+        }
+ 
+        else{
             String product_id = label_ofpID.getText();
             int quantity = Integer.parseInt(label_ofQ.getText());
             float price = Float.valueOf(label_ofPr.getText());
-            
             
             String query = "Update OrderDetails "
                     + "Set quan = ? "
@@ -377,26 +399,33 @@ public class WorkSpaceController implements Initializable {
                 int i = pst.executeUpdate();
                 if (i == 1)
                 {
-                    AlertMaker.AlertMaker.showSimpleAlert("Update", "Succesfully!");
+                    AlertMaker.showSimpleAlert("Update", "Succesfully!");
                     LoadData(label_ofOrderID.getText());
                     Clearlabel();
                 }
             }
             catch(SQLException ex)
             {
-                
+                 AlertMaker.showSimpleAlert("Error", "Fail update!");
             }
+        }
         
     }
 
     @FXML
     private void _Delete(ActionEvent event) {
         String order_id = label_ofOrderID.getText();
-        String product_id = label_ofpID.getText();
-        int quantity = Integer.parseInt(label_ofQ.getText());
-        float price = Float.valueOf(label_ofPr.getText());
+
         
-        String query = "Delete from OrderDetails "
+           //kiem tra 
+        if(order_id.isEmpty()){
+             AlertMaker.showErrorMessage("Error", "Please make orders first");
+        }
+        else{
+            String product_id = label_ofpID.getText();
+            int quantity = Integer.parseInt(label_ofQ.getText());
+            float price = Float.valueOf(label_ofPr.getText());
+            String query = "Delete from OrderDetails "
                 + "where order_id = ? and product_id = ? and quan = ? ";
         try
         {
@@ -407,14 +436,15 @@ public class WorkSpaceController implements Initializable {
             int i = pst.executeUpdate();
             if (i == 1)
             {
-                AlertMaker.AlertMaker.showSimpleAlert("Delete", "Successfully!");
+                AlertMaker.showSimpleAlert("Delete", "Successfully!");
                 LoadData(label_ofOrderID.getText());
                 Clearlabel();
             }
         }
         catch(SQLException ex)
         {
-            
+             AlertMaker.showSimpleAlert("Error", "Fail update!");
+        }
         }
     }
 
@@ -426,11 +456,29 @@ public class WorkSpaceController implements Initializable {
 
     @FXML
     private void _Payment(ActionEvent event) {
-        Float totalprice = Float.valueOf(jtf_TotalPrice.toString());
-        Float customerpay = Float.valueOf(jtf_customerPay.toString());
-        Float payback = Float.valueOf(jtf_payBack.getText());
+        if(label_ofOrderID.getText().isEmpty())
+        {
+            AlertMaker.showErrorMessage("Error", "Please make orders first");
+        }
+        else {
+        Float totalprice = Float.valueOf(lb_TotalPrice.getText());
+        Float customerpay = Float.valueOf(jtf_customerPay.getText());
+        if (jtf_customerPay.toString().isEmpty())
+        {
+            AlertMaker.showErrorMessage("Erroes", "Please fills in customerPay.");
+        }
         
+        Float payback = customerpay - totalprice;
+        
+        lb_payBack.setText(String.valueOf(payback));
+        PriceVoice();
         OrdersDAO.Update(label_ofOrderID.getText(), totalprice, customerpay, payback);
+       
+        Clearlabel();
+        loadOrdersDetailFromDB();
+        }
+        
+        
     }
 
     private void Clearlabel() {
@@ -438,4 +486,121 @@ public class WorkSpaceController implements Initializable {
         label_ofPr.setText("");
         label_ofQ.setText("");
     }
+
+    @FXML
+    private void _Exit(ActionEvent event) {
+         try
+        {
+            Stage stage = (Stage) btn_Settings.getScene().getWindow();
+            stage.close();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Login.fxml"));
+            Parent root = (Parent) loader.load();
+ 
+            
+            stage.setTitle("Login");
+            stage.setScene(new Scene(root));
+            stage.show();   
+            
+        }
+        catch(IOException ex)
+        {
+        }
+    }
+
+    @FXML
+    private void _Search(ActionEvent event) {
+        
+        int i = cbb_Category.getSelectionModel().getSelectedIndex();
+        
+        switch(i){
+               
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+                SearchProduct(i);
+                break;
+            case 5:
+                LoadProductFromDB();
+                break;
+            default: 
+                AlertMaker.showErrorMessage("Warning", "Please pick Category.");
+                LoadProductFromDB();
+                break;
+             
+                
+        }
+         
+    }
+    
+    public void SearchProduct(int category){
+
+      
+        data.clear();
+        String query = "Select* "
+                     + "From Product p "
+                     + "Where p.category_id = ?";
+        try {
+            pst = conn.prepareStatement(query);
+                
+            pst.setInt(1, category);
+            rs = pst.executeQuery();
+            
+        while (rs.next())
+        {
+            data.add(new Product(rs.getString(1),rs.getString(2), +rs.getFloat(3),rs.getString(4)));
+        }
+        } catch (SQLException ex) {
+            Logger.getLogger(ListProductController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tbv_Product.setItems(data);  
+        }
+    
+    private void PriceVoice(){
+        String sourceFile = "C:\\Users\\PC\\Documents\\GitHub\\Coffee-Shop\\src\\report\\report.jrxml";
+        try{
+            JasperReport jr = JasperCompileManager.compileReport(sourceFile);
+            HashMap<String, Object>para = new HashMap<>();
+            para.put("id", label_ofOrderID.getText());
+            
+            ArrayList<OrderDetails> plist = new ArrayList<>();
+            for(OrderDetails od : data2){
+                plist.add(new OrderDetails(od.getOrder_id(), od.getProduct_id(), od.getQuantity(), od.getPrice()));
+            }
+            JRBeanCollectionDataSource jcs = new JRBeanCollectionDataSource(plist);
+            JasperPrint jp = JasperFillManager.fillReport(jr, para, jcs);
+            JasperViewer.viewReport(jp);
+            
+        }catch(JRException ex)
+        {
+            Logger.getLogger(WorkSpaceController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
+    @FXML
+    private void _PayBack(KeyEvent event) {
+        
+        if(event.getCode() == KeyCode.ENTER){
+           
+             if(jtf_customerPay.getText().isEmpty())
+        {
+            AlertMaker alert = new AlertMaker();
+            alert.showSimpleAlert(" WARNING","Please input Customer Pay");
+            
+        }else{
+            Float totalprice = Float.valueOf(lb_TotalPrice.getText());
+            Float customerpay = Float.valueOf(jtf_customerPay.getText());
+            Float payback = customerpay - totalprice;
+        
+            lb_payBack.setText(String.valueOf(payback));}
+           
+        }
+        else
+        {
+            
+        }
+    }
+    
 }

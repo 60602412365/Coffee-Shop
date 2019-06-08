@@ -13,7 +13,7 @@ import javafx.beans.property.SimpleStringProperty;
  *
  * @author PC
  */
-public class Orders {
+public class Orders extends Object {
     private String order_id, account_id;
     private java.sql.Date ordertime;
     private float price, customerpay, payback;

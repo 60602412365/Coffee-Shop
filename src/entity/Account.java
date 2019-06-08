@@ -17,6 +17,16 @@ import java.util.Vector;
 public class Account {
     private String account_id, username, password, name, phone, email, address ;
 
+    public Account(String username, String pass, String ten, Date birth, String add, String em, String pho ) {
+        this.username = username;
+        this.password = pass;
+        this.name = ten;
+        this.birth_day = birth;
+        this.address = add;
+        this.email = em;
+        this.phone = pho;
+    }
+
     public String getAccount_id() {
         return account_id;
     }

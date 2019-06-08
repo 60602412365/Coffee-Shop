@@ -19,6 +19,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 /**
@@ -42,6 +44,8 @@ public class AdminWorkSpaceController implements Initializable {
     private Admin ad;
     @FXML
     private Button btn_QLhoaDon;
+    @FXML
+    private Pane pane;
 
     /**
      * Initializes the controller class.
@@ -52,16 +56,23 @@ public class AdminWorkSpaceController implements Initializable {
     }    
 
     @FXML
-    private void btn_quanLyNhanSu(ActionEvent event) {
-        ChangeScreen.loadWindow(getClass().getResource("/gui/admin/ListAccount.fxml"), "Quản lý nhân sự", null);
+    private void btn_quanLyNhanSu(ActionEvent event) throws IOException {
+        pane.getChildren().clear();
+        //ChangeScreen.loadWindow(getClass().getResource("/gui/admin/ListAccount.fxml"), "Quản lý nhân sự", null);
+        AnchorPane Pane = FXMLLoader.load(getClass().getResource("/gui/admin/ListAccount.fxml"));
+        pane.getChildren().setAll(Pane);
+        
     }
  
 
 
 
     @FXML
-    private void _quanLyThucDon(ActionEvent event) {
-        ChangeScreen.loadWindow(getClass().getResource("/gui/admin/ListProduct.fxml"), "Quản lý thực đơn", null);
+    private void _quanLyThucDon(ActionEvent event) throws IOException {
+        //ChangeScreen.loadWindow(getClass().getResource("/gui/admin/ListProduct.fxml"), "Quản lý thực đơn", null);
+        pane.getChildren().clear();
+        AnchorPane Pane = FXMLLoader.load(getClass().getResource("/gui/admin/ListProduct.fxml"));
+        pane.getChildren().setAll(Pane);
     }
     
     @FXML
@@ -75,11 +86,18 @@ public class AdminWorkSpaceController implements Initializable {
         stage.setTitle("Quản lý thực đơn");
         stage.show();
         */ 
-        ChangeScreen.loadWindow(getClass().getResource("/gui/admin/ListOrder.fxml"), "Quản lý hóa đơn", null);
+        //ChangeScreen.loadWindow(getClass().getResource("/gui/admin/ListOrder.fxml"), "Quản lý hóa đơn", null);
+        pane.getChildren().clear();
+        AnchorPane Pane = FXMLLoader.load(getClass().getResource("/gui/admin/ListOrder.fxml"));
+        pane.getChildren().setAll(Pane);
     }
     @FXML
-    private void _doanhThu(ActionEvent event) {
-        ChangeScreen.loadWindow(getClass().getResource("/gui/admin/EndDay.fxml"), "Doanh thu", null);
+    private void _doanhThu(ActionEvent event) throws IOException {
+        //ChangeScreen.loadWindow(getClass().getResource("/gui/admin/EndDay.fxml"), "Doanh thu", null);
+        pane.getChildren().clear();
+        AnchorPane Pane = FXMLLoader.load(getClass().getResource("/gui/admin/EndDay.fxml"));
+        pane.getChildren().setAll(Pane);
+        
     }
 
     @FXML

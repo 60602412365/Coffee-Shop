@@ -128,8 +128,12 @@ public class EndDayController implements Initializable {
 
     @FXML
     private void _Load(ActionEvent event) {
-        //firstDateSelector.setValue(LocalDate.now( ZoneId.of( "Asia/Ho_Chi_Minh" )));
-        //lastDateSelector.setValue(LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh")));
+        if(firstDateSelector.getValue() == null || lastDateSelector.getValue() == null )
+        {
+            AlertMaker.AlertMaker.showErrorMessage("Warning", " Please pick LastDate and FirstDate");
+        }
+        else{
+            
         LocalDate firstDate = firstDateSelector.getValue();
         LocalDate lastDate = lastDateSelector.getValue();
         if (firstDate.isAfter(lastDate))
@@ -137,6 +141,7 @@ public class EndDayController implements Initializable {
             AlertMaker.AlertMaker.showErrorMessage("Errors", "LastDate must be after FirstDate");
         }
         LoadOrderFromDatabase(java.sql.Date.valueOf(firstDate),java.sql.Date.valueOf(lastDate));
+        }
         
     }
         

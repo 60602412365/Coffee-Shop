@@ -6,6 +6,7 @@
 package gui.admin;
 
 import com.jfoenix.controls.JFXTextField;
+import dao.ProductDAO;
 import entity.Product;
 import java.net.URL;
 import java.sql.Connection;
@@ -22,6 +23,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -54,7 +56,6 @@ public class ListProductController implements Initializable {
     private Button btn_Delete;
     @FXML
     private Button btn_Edit;
-    @FXML
     private JFXTextField jtf_ID;
     @FXML
     private JFXTextField jtf_Name;
@@ -68,6 +69,8 @@ public class ListProductController implements Initializable {
     private PreparedStatement pst = null;
     private ResultSet rs = null;
     private ObservableList<Product> data; 
+    @FXML
+    private Label lb_ID;
 
     /**
      * Initializes the controller class.
@@ -84,54 +87,66 @@ public class ListProductController implements Initializable {
 
     @FXML
     private void _Add(ActionEvent event) throws SQLException {
-        String query = "Insert into Product values (?,?,?,?)";
-        String ID = jtf_ID.getText();
-        String name = jtf_Name.getText();
-        String price = jtf_Price.getText();
-        String categoryID =jtf_categoryID.getText();
         
-        if (ID.isEmpty() || name.isEmpty() || price.isEmpty() || categoryID.isEmpty())
+         ClearTextFields();
+     
+        int i = ProductDAO.insert();
+        if (i == 1)
         {
-            AlertMaker.AlertMaker.showErrorMessage("Cảnh báo", "You must enter all textfields");
-        }
-        try
-        {
-            pst = conn.prepareStatement(query);
-            pst.setString(1, ID);
-            pst.setString(2, name);
-            pst.setString(3,price);
-            pst.setString(4,categoryID);
-            
-            int i = pst.executeUpdate();
-            if (i == 1)
-            {
-                AlertMaker.AlertMaker.showSimpleAlert("Thêm Sản phẩm", "Thành Công");
+            AlertMaker.AlertMaker.showSimpleAlert("Thêm Sản phẩm", "Thành Công");
                 
-                setCellTable();
-                LoadDataFromDB();
-                ClearTextFields();
-            }
+            setCellTable();
+            LoadDataFromDB();
+            ClearTextFields();
         }
-        catch(SQLException ex)
-        {
-        }
-        finally 
-        {
-            pst.close();
-        }
+    
+    
     }
 
     @FXML
     private void _timKiem(ActionEvent event) {
+        String search = jtf_search.getText();
+        if (search.isEmpty())
+        {
+            AlertMaker.AlertMaker.showErrorMessage("Error", "Please enter search field");
+            LoadDataFromDB();
+        }
+        else 
+        {
+            data.clear();
+            String query = "Select* "
+                     + "From Product p "
+                     + "Where p.name like N'%' + ? +'%'";
+            try {
+                pst = conn.prepareStatement(query);
+                
+                pst.setString(1, search);
+                rs = pst.executeQuery();
+            
+            while (rs.next())
+            {
+                data.add(new Product(rs.getString(1),rs.getString(2),rs.getFloat(3),rs.getString(4)));
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ListProductController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tbv_Product.setItems(data);
+        }
     }
 
     @FXML
     private void _Delete(ActionEvent event) throws SQLException {
+        if(lb_ID.getText().isEmpty()){
+             AlertMaker.AlertMaker.showErrorMessage("Warning", "You must pick product");
+        }
+        else
+        {
         String query = "Delete from Product where product_id = ?";
         try
         {
             pst = conn.prepareStatement(query);
-            pst.setString(1,jtf_ID.getText());
+            pst.setString(1,lb_ID.getText());
             int i = pst.executeUpdate();
             if (i == 1)
             {
@@ -146,14 +161,21 @@ public class ListProductController implements Initializable {
         {
             
         }
+        }
     }
 
     @FXML
     private void _Edit(ActionEvent event) {
-        String query = "Update Product set product_id = ?, name = ?, price = ?, category_id = ? ";
+        if(lb_ID.getText().isEmpty()){
+             AlertMaker.AlertMaker.showErrorMessage("Warning", "You must pick account");
+        }
+        else
+        {
+        String query = "Update Product set name = ?, price = ?, category_id = ? " 
+                + "where product_id = ?";
         try
         {
-            String ID = jtf_ID.getText();
+            String ID = lb_ID.getText();
             String name = jtf_Name.getText();
             String price = jtf_Price.getText();
             String categoryID = jtf_categoryID.getText();
@@ -165,10 +187,11 @@ public class ListProductController implements Initializable {
             }
             pst = conn.prepareStatement(query);
             
-            pst.setString(1, ID);
-            pst.setString(2, name);
-            pst.setString(3, price);
-            pst.setString(4, categoryID);
+           
+            pst.setString(1, name);
+            pst.setString(2, price);
+            pst.setString(3, categoryID);
+            pst.setString(4, ID);
             
             int i = pst.executeUpdate();
             if (i == 1)
@@ -182,6 +205,7 @@ public class ListProductController implements Initializable {
         catch(SQLException ex)
         {
             
+        }
         }
     }
 
@@ -212,7 +236,7 @@ public class ListProductController implements Initializable {
     private void bindingsFromTableViewtoTextField() {
         tbv_Product.setOnMouseClicked((MouseEvent event) -> {
            Product p = tbv_Product.getItems().get(tbv_Product.getSelectionModel().getSelectedIndex());
-           jtf_ID.setText(p.getProduct_id());
+           lb_ID.setText(p.getProduct_id());
            jtf_Name.setText(p.getName());
            jtf_Price.setText(Float.toString(p.getPrice()));
            jtf_categoryID.setText(p.getCategory_id());
@@ -221,7 +245,7 @@ public class ListProductController implements Initializable {
     }
     private void ClearTextFields()
     {
-        jtf_ID.clear();
+      
         jtf_Name.clear();
         jtf_Price.clear();
         jtf_categoryID.clear();

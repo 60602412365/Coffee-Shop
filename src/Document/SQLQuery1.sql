@@ -4,10 +4,10 @@ go
 CREATE DATABASE COFFEESHOP
 GO
 
+
 USE COFFEESHOP
 GO
 
-DELETE Account
 
 --ACCOUNT
 create table Admin (
@@ -19,7 +19,7 @@ create table Admin (
 go
 
 create table Account (
-	em_id varchar(10) not null			constraint pk_accountid primary key,
+	ac_id varchar(10) not null			constraint pk_accountid primary key,
 	username varchar(50) not null,
 	pass varchar(50) not null,
 	name nvarchar(50) not null,	
@@ -43,24 +43,27 @@ create table Product(
 	product_id varchar(10)				constraint pk_menuproductid primary key,
 	name nvarchar(50) not null,
 	price money not null,
-	category_id varchar(10) not null
+	category_id int constraint fk_productcategory foreign key references Category(category_id)
 )
 go
 	
 
 --END MENU
 
+
 --ORDER
 create table Orders (
 	order_id varchar(10) not null	constraint pk_orderid primary key,
-	account_id varchar(10) not null	constraint fk_oderaccount foreign key references Account(em_id),
+	account_id varchar(10) not null	constraint fk_oderaccount foreign key references Account(ac_id),
 	ordertime date not null,               -- thời gian order
-	price money not null,
+	totalprice money not null,
 	customerpay money not null,
 	payback money not null
 
 )
 go
+
+
 
 create table OrderDetails(
 	order_id varchar(10) not null		constraint fk_order foreign key references Orders(order_id),
@@ -125,7 +128,6 @@ insert into Product values		-- đồ uống
 ('F000000056',	N'orange juice (trái lớn)',			40000,		3),
 ('F000000057',	N'orange juice (trái vừa)',			40000,		3)
 go
-
 insert into Orders values  -- test data
 ('oID0000001','AC00000001','2019-06-01',100000,100000,0),
 ('oID0000002','AC00000001','2019-06-01',120000,140000,20000),
@@ -151,18 +153,12 @@ insert into OrderDetails values
 ('oID0000008','F000000031',2)
 go
 
-select o.price*od.quan as 'Thành tiền'
-from Orders o inner join OrderDetails od on o.order_id = od.order_id
 
-select od.order_id, p.price * od.quan as 'Thành tiền'
-from Product p inner join OrderDetails od on p.product_id = od.product_id
+SELECT * FROM OrderDetails  WHERE order_id = 'oID0000001'
 
-select*, p.price * od.quan as 'Thành tiền'
-from Product p inner join OrderDetails od on p.product_id = od.product_id
+SELECT * FROM (( Orders o INNER JOIN OrderDetails od on o.order_id = od.order_id )INNER JOIN Product p on p.product_id = od.product_id WHERE order_id = 'oID0000001')
 
-select od.order_id, od.product_id,od.quan, od.quan * p.price as 'Price'
-from Product p inner join OrderDetails od on p.product_id = od.product_id
 
-select *
-from Orders
-where ordertime >= '2019-06-01' and ordertime <= '2019-06-04'
+
+Select * FROM OrderDetails
+
